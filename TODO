@@ -1,0 +1,18 @@
+Copy all the files here and make THEM into the symlinks!
+
+have a directory for .vim configs (.vimrc with them, they'd just be linked in a different place).
+Have machine specific (automatically detected) override files.
+
+Publish an article about this setup.
+Put it on Linux.com?
+
+Also have a file lists what link goes where.
+Actually, have a make target / script that puts the links where they need to be.
+Puts the files next to existing ones, or replaces the old ones leaving their copies, or not leaving anything(depending on an option),
+tells you what it did.
+
+SHOW HIDDEN FILES!
+
+put dropbox scripts here as well, link them to ~/bin
+
+Add tz_update.py here
