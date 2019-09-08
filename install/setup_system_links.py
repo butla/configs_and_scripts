@@ -27,7 +27,6 @@ def get_links_to_create(
 ) -> List[_LinkToCreate]:
     file_path_strings = [str(path) for path in files_to_link]
     link_path_strings = [
-        # TODO cahnge home to files_dir
         re.sub(f'^{files_dir}', str(links_location), path)
         for path in file_path_strings
     ]
@@ -46,7 +45,7 @@ def ensure_parent_dirs(paths: Iterable[Path]):
             path.parent.mkdir(parents=True)
 
 
-def backup_existing_targets(paths: Iterable[Path]):
+def backup_and_remove_existing_targets(paths: Iterable[Path]):
     for path in paths:
         if path.exists():
             print(f'Backing up {path}')
@@ -55,6 +54,9 @@ def backup_existing_targets(paths: Iterable[Path]):
 
 
 def setup_links(source_dir: Path, target_dir: Path):
+    source_dir = source_dir.absolute()
+    target_dir = target_dir.absolute()
+
     files_and_dirs_to_link = list(source_dir.glob('**/*'))
     files_to_link = [path for path in files_and_dirs_to_link
                      if should_create_link(path)]
@@ -67,9 +69,10 @@ def setup_links(source_dir: Path, target_dir: Path):
     link_paths = [link.location for link in links_to_create]
 
     ensure_parent_dirs(link_paths)
-    backup_existing_targets(link_paths)
+    backup_and_remove_existing_targets(link_paths)
 
     for link_to_create in links_to_create:
+        print('Creating the link at', link_to_create.location)
         link_to_create.location.symlink_to(link_to_create.target)
 
 

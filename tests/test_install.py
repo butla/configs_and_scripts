@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 
 import pytest
@@ -40,7 +41,8 @@ def test_system_symlinks_are_created(tmp_path):
     for link, target in links_to_create:
         assert link.exists()
         assert link.is_symlink()
-        assert link.resolve() == target.absolute()
+        # make sure the link is absolute
+        assert os.readlink(link) == str(target.absolute())
 
 
 def test_old_system_files_are_backed_up_replaced_with_links(tmp_path):
