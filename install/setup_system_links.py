@@ -10,29 +10,32 @@ def should_create_link(path):
     return (
         path.is_file() 
         and path.suffix != '.pyc'
-        and not str(path).startswith('home/bin/test')
+        and not 'tests/' in str(path)
     )
 
 
 @dataclass
-class _SourceToTargetPath:
-    source: Path
+class _LinkToCreate:
     target: Path
+    location: Path
 
 
-def map_to_user_home_paths(files_to_link: List[Path]) -> List[Path]:
-    user_home_path = str(Path('~').expanduser())
-
-    path_strings = [str(path) for path in files_to_link]
-    system_path_strings = [
-        re.sub(f'^home', user_home_path, path)
-        for path in path_strings
+def get_links_to_create(
+        files_to_link: List[Path],
+        files_dir: Path,
+        links_location: Path,
+) -> List[_LinkToCreate]:
+    file_path_strings = [str(path) for path in files_to_link]
+    link_path_strings = [
+        # TODO cahnge home to files_dir
+        re.sub(f'^{files_dir}', str(links_location), path)
+        for path in file_path_strings
     ]
-    system_paths = [Path(path) for path in system_path_strings]
+    link_paths = [Path(path) for path in link_path_strings]
 
     return [
-        _SourceToTargetPath(source, target)
-        for source, target in zip(files_to_link, system_paths)
+        _LinkToCreate(target=link_target, location=link_path)
+        for link_target, link_path in zip(files_to_link, link_paths)
     ]
 
 
@@ -48,28 +51,30 @@ def backup_existing_targets(paths: Iterable[Path]):
         if path.exists():
             print(f'Backing up {path}')
             backup_path = path.with_name(path.name + '.bak')
-            #path.replace(backup_path)
+            path.replace(backup_path)
 
 
-
-def setup_links():
-    scripts_root = Path('home/')
-
-    files_and_dirs_to_link = list(scripts_root.glob('**/*'))
+def setup_links(source_dir: Path, target_dir: Path):
+    files_and_dirs_to_link = list(source_dir.glob('**/*'))
     files_to_link = [path for path in files_and_dirs_to_link
                      if should_create_link(path)]
 
-    source_to_target_paths = map_to_user_home_paths(files_to_link)
-    target_paths = [pair.target for pair in source_to_target_paths]
+    links_to_create = get_links_to_create(
+        files_to_link=files_to_link,
+        files_dir=source_dir,
+        links_location=target_dir,
+    )
+    link_paths = [link.location for link in links_to_create]
 
-    ensure_parent_dirs(target_paths)
-    backup_existing_targets(target_paths)
+    ensure_parent_dirs(link_paths)
+    backup_existing_targets(link_paths)
 
-    # TODO create links from files_to_link to target_paths
-    # Path.symlink_to
+    for link_to_create in links_to_create:
+        link_to_create.location.symlink_to(link_to_create.target)
 
 
-
-# TODO make sure all parent dirs exist
 if __name__ == '__main__':
-    setup_links()
+    setup_links(
+        source_dir=Path('home/'),
+        target_dir=Path('~').expanduser(),
+    )
