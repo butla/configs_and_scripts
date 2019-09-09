@@ -32,10 +32,20 @@ def get_links_to_create(
     ]
     link_paths = [Path(path) for path in link_path_strings]
 
-    return [
+    initial_links = [
         _LinkToCreate(target=link_target, location=link_path)
         for link_target, link_path in zip(files_to_link, link_paths)
     ]
+    return [link for link in initial_links if not _is_link_set_up(link)]
+
+
+def _is_link_set_up(link: _LinkToCreate):
+    """Prevents us doing anything if the link is already set up.
+    """
+    if link.location.exists() and link.location.is_symlink():
+        if link.location.resolve() == link.target.absolute():
+            return True
+    return False
 
 
 def ensure_parent_dirs(paths: Iterable[Path]):

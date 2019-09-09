@@ -3,5 +3,5 @@ test:
 	PYTHONPATH=home/bin pytest -v home/bin/tests
 	PYTHONPATH=. pytest -v tests
 
-install_link:
+install_links:
 	python3 install/setup_system_links.py

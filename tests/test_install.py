@@ -45,6 +45,20 @@ def test_system_symlinks_are_created(tmp_path):
         assert os.readlink(link) == str(target.absolute())
 
 
+def test_dont_do_anything_with_properly_set_up_symlinks(tmp_path):
+    source_dir = Path(__file__).parent.parent / 'sample_source_dir'
+    target_dir = tmp_path / 'target'
+
+    for _ in range(2):
+        setup_system_links.setup_links(
+            source_dir=source_dir,
+            target_dir=target_dir,
+        )
+
+    # no backups were created
+    assert not list(target_dir.glob('**/*.bak'))
+
+
 def test_old_system_files_are_backed_up_replaced_with_links(tmp_path):
     source_dir = tmp_path / 'source'
     links_dir = tmp_path / 'target'
