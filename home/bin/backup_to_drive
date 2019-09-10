@@ -1,0 +1,33 @@
+#!/bin/bash
+BACKUP_LOCATION=/media/butla/Seagate\ Backup\ Plus\ Drive/backup
+
+sudo borg create --stats --progress "${BACKUP_LOCATION}::$(date --iso-8601=seconds --utc)-laptop" \
+    /data/filmy \
+    /data/grafika \
+    /data/instalki \
+    /data/komiksy \
+    /data/muzyka \
+    /data/nagrania_audio \
+    /data/programy_wlasne_i_innych \
+    /data/sejwy \
+    /data/studia \
+    /data/teksty \
+    /data/vms \
+    /data/zdjęcia_i_filmiki \
+    /bin \
+    /boot \
+    /etc \
+    /home \
+    /initrd.img \
+    /initrd.img.old \
+    /lib \
+    /lib32 \
+    /lib64 \
+    /opt \
+    /root \
+    /sbin \
+    /snap \
+    /srv \
+    /usr \
+    /vmlinuz \
+    /vmlinuz.old
