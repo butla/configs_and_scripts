@@ -12,6 +12,9 @@ alias gm='git mergetool'
 
 alias dk='docker-compose'
 
+# thorough finding
+alias fdd='fd --type f --hidden --follow --exclude .git'
+
 alias my_ip='http ipinfo.io'
 alias ag='ag --hidden --ignore .git'
 
