@@ -1,5 +1,3 @@
-Copy all the files here and make THEM into the symlinks!
-
 have a directory for .vim configs (.vimrc with them, they'd just be linked in a different place).
 Have machine specific (automatically detected) override files.
 

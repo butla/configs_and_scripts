@@ -1,0 +1,12 @@
+#!/usr/bin/python3
+import requests
+import subprocess
+
+resp = requests.get('http://ipinfo.io')
+resp.raise_for_status()
+
+country = resp.json()['country']
+if country == 'PL':
+    subprocess.run('timedatectl set-timezone Europe/Warsaw'.split())
+elif country == 'GB':
+    subprocess.run('timedatectl set-timezone Europe/London'.split())
