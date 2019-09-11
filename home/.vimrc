@@ -25,6 +25,8 @@ Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'junegunn/rainbow_parentheses.vim'
+" close HTML tags
+Plugin 'alvan/vim-closetag'
 
 " neovim-only plugins
 Plugin 'numirias/semshi'
@@ -73,8 +75,11 @@ autocmd FileType sql setlocal tabstop=2 softtabstop=2 shiftwidth=2
 
 " HTML/CSS editing options
 autocmd FileType css,html* setlocal tabstop=2 softtabstop=2 shiftwidth=2
+" prevent delimitMate from closing tags by not using <>, so that vim-closetag can do it's job
+" TODO not working
+autocmd FileType html let b:delimitMate_matchpairs = "(:),[:],{:}"
 
-set ignorecase 
+set ignorecase
 set hlsearch
 set incsearch
 set smartcase
