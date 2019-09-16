@@ -1,0 +1,3 @@
+[submodule "configs_private"]
+	path = configs_private
+	url = git@gitlab.com:michalbultrowicz/configs_private.git
