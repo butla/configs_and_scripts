@@ -91,6 +91,7 @@ if __name__ == '__main__':
         source_dir=Path('home/'),
         target_dir=Path('~').expanduser(),
     )
+    # TODO make sure the files here are chmod 600
     setup_links(
         source_dir=Path('configs_private/home/'),
         target_dir=Path('~').expanduser(),
