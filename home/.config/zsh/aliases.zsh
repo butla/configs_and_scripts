@@ -9,6 +9,8 @@ alias gd='git diff'
 alias gc='git checkout'
 alias gco='git commit -a'
 alias gm='git mergetool'
+alias gp='git push'
+alias gpl='git pull'
 
 alias dk='docker-compose'
 
