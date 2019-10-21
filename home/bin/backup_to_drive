@@ -1,7 +1,10 @@
 #!/bin/bash
 BACKUP_LOCATION=/media/butla/Seagate\ Backup\ Plus\ Drive/backup
 
-sudo borg create --stats --progress "${BACKUP_LOCATION}::$(date --iso-8601=seconds --utc)-laptop" \
+sudo borg create --stats --progress \
+    --exclude /var/lib/lxcfs \
+    --exclude /var/lib/docker \
+    "${BACKUP_LOCATION}::$(date --iso-8601=seconds --utc)-laptop" \
     /data/filmy \
     /data/grafika \
     /data/instalki \
