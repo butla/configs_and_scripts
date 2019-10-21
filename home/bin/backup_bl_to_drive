@@ -16,6 +16,6 @@ sudo borg create --stats --progress "${BACKUP_LOCATION}::$(date --iso-8601=secon
     /snap \
     /srv \
     /usr \
-    /var/lib \
+    /var \
     /vmlinuz \
     /vmlinuz.old
