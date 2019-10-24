@@ -49,6 +49,7 @@
       <property name="&lt;Super&gt;3" type="string" value="keepassxc"/>
       <property name="&lt;Shift&gt;Print" type="string" value="xfce4-screenshooter -r"/>
       <property name="&lt;Super&gt;f" type="string" value="thunar"/>
+      <property name="&lt;Shift&gt;&lt;Super&gt;l" type="string" value="systemctl suspend"/>
     </property>
   </property>
   <property name="xfwm4" type="empty">
