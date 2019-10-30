@@ -27,6 +27,9 @@ Plugin 'flazz/vim-colorschemes'
 Plugin 'junegunn/rainbow_parentheses.vim'
 " close HTML tags
 Plugin 'alvan/vim-closetag'
+" commenting out
+Plugin 'tpope/vim-commentary'
+Plugin 'tpope/vim-fugitive'
 
 " neovim-only plugins
 Plugin 'numirias/semshi'
