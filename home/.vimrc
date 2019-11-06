@@ -147,10 +147,11 @@ nnoremap <leader>k :cp<CR>
 nnoremap <leader>J :lnext<CR>
 nnoremap <leader>K :lprev<CR>
 
-" keybindings for fuzzy file finding
+" keybindings for fuzzy file finding and search
 nnoremap <leader>. :FZF<CR>
 nnoremap <leader>, :Buffers<CR>
-nnoremap ? :Ag<CR>
+nnoremap <leader>/ :Ag<CR>
+nnoremap ? :Ack 
 
 " useful keybindings for basic operations
 nnoremap <leader>q :bd<CR>
