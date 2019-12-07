@@ -29,6 +29,7 @@ Plugin 'junegunn/rainbow_parentheses.vim'
 Plugin 'alvan/vim-closetag'
 " commenting out
 Plugin 'tpope/vim-commentary'
+" Git integration
 Plugin 'tpope/vim-fugitive'
 
 " neovim-only plugins
