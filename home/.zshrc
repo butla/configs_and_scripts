@@ -122,7 +122,7 @@ bindkey '^K' fzf-cd-widget
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/development
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='-p python3.7'
+export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='-p python3.8'
 source ~/.local/bin/virtualenvwrapper.sh
 
 source ~/.config/zsh/aliases.zsh
