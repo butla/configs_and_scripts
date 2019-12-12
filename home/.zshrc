@@ -122,8 +122,14 @@ bindkey '^K' fzf-cd-widget
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/development
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='-p python3.8'
-source ~/.local/bin/virtualenvwrapper.sh
+
+if which python3.8 > /dev/null; then
+    export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='-p python3.8'
+else
+    export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='-p python3.7'
+fi
+
+source $(which virtualenvwrapper.sh)
 
 source ~/.config/zsh/aliases.zsh
 source ~/.config/zsh/functions.zsh
