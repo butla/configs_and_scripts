@@ -15,7 +15,10 @@ alias gpl='git pull'
 alias dk='docker-compose'
 
 # thorough finding
-alias fdd='fd --type f --hidden --follow --exclude .git'
+alias fdd='fd --hidden --follow --exclude .git'
+#
+# find everything
+alias fde='fd --hidden --follow --exclude .git --no-ignore'
 
 alias my_ip='http ipinfo.io'
 alias ag='ag --hidden --ignore .git -f'
