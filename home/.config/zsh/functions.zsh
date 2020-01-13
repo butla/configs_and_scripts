@@ -49,3 +49,11 @@ function windows-1250-to-utf-8()
         "$1" > $TEMP_FILE
     mv $TEMP_FILE "$1"
 }
+
+function upgrade()
+{
+    echo "${bg[green]}---${reset_color}Looking for updates with yay${bg[green]}---${reset_color}"
+    yay -Syu;
+    echo "${bg[green]}---${reset_color}Looking for updates with flatpak${bg[green]}---${reset_color}"
+    flatpak update;
+}
