@@ -70,6 +70,7 @@ HIST_STAMPS="yyyy-mm-dd"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   git
+  git-auto-fetch
   # TODO have something like globalias but that expands only after enter
   # and use it only when tutoring or presenting
   virtualenv
