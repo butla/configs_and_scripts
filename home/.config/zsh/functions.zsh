@@ -52,8 +52,14 @@ function windows-1250-to-utf-8()
 
 function upgrade()
 {
-    echo "${bg[green]}---${reset_color}Looking for updates with yay${bg[green]}---${reset_color}"
-    yay -Syu;
+    if [[ $(lsb_release -s -i) == 'Ubuntu' ]]; then
+        echo "${bg[green]}---${reset_color}Looking for updates with apt${bg[green]}---${reset_color}"
+        sudo apt update
+        sudo apt upgrade
+    else
+        echo "${bg[green]}---${reset_color}Looking for updates with yay${bg[green]}---${reset_color}"
+        yay -Syu;
+    fi
     echo "${bg[green]}---${reset_color}Looking for updates with flatpak${bg[green]}---${reset_color}"
     flatpak update;
 }
