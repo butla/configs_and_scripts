@@ -152,7 +152,7 @@ nnoremap <leader>K :lprev<CR>
 nnoremap <leader>. :FZF<CR>
 nnoremap <leader>, :Buffers<CR>
 nnoremap <leader>/ :Ag<CR>
-nnoremap ? :Ack 
+nnoremap ? :Ack ""<Left>
 
 " useful keybindings for basic operations
 nnoremap <leader>q :bd<CR>
