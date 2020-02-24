@@ -1,0 +1,4 @@
+#!/bin/bash
+tmux split-window -h
+
+# TODO open 4 windows, one in docker - app/django container
