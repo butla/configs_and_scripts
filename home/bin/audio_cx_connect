@@ -1,0 +1,12 @@
+#!/bin/bash
+bluetoothctl disconnect 00:1B:66:A1:C3:66
+sudo usb_modeswitch -R -v 8087 -p 0a2b
+# TODO maybe the device got stuck and will require more restarts
+
+bluetoothctl connect 00:1B:66:A1:C3:66
+
+# TODO if there are errors, this might require repairing.
+# Prompt the user to enable pairing on the device again.
+# Then scan, and when it appears try pairing, when it pairs connect.
+
+# TODO switch pulseaudio default sink to be cx
