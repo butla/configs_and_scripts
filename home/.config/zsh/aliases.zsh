@@ -12,6 +12,7 @@ alias gm='git mergetool'
 alias gp='git push'
 alias gpl='git pull'
 
+alias d='docker'
 alias dk='docker-compose'
 
 # thorough finding
