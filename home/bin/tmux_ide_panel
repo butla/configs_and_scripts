@@ -1,9 +1,10 @@
 #!/bin/bash
 # Split panes horizontally and don't switch selection to the new pane to continue the script.
-# Set the pane to at least 124 chars width, for 120 chars of line length that my team agreed upon with flake8,
-# and my vim line indicator. That is, when the line length is below of 1000, which is the case with most files I edit.
+# Set the pane to at 114 chars width, which can fit 110 chars of line length
+# (10 more than I like to have, just in case) and my vim line indicator.
+# That is, when the line length is below of 1000, which is the case with most files I edit.
 # Runs my ZSH function that runs vim with some setup magics in the pane created in the split.
-tmux split-window -hd -l 124 zsh -ic v
+tmux split-window -hd -l 114 zsh -ic v
 
 # vertical split, open above us with ranger for file management
 tmux split-window -vdb ranger
@@ -13,9 +14,8 @@ if [ -f docker-compose.yml ]; then
     # TODO check if app container (called app or django) is defined with some C/rust yaml parser
 fi
 
+tmux select-pane -t 2
 # TODO write about this script - using ranger instead of nerdtree,
 # because I think it's a better window manager
 
 # screenshot of the end product (just no work code, use mountepy, or responder code, or experiments)
-
-# ===================================================================================================================120

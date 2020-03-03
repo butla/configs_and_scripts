@@ -1,6 +1,7 @@
 alias vim='PYTHONPATH=$(pwd) vim'
 alias r='ranger'
 alias t='tmux -2'
+alias vv='tmux_ide_panel'
 
 alias gs='git status'
 alias gl='git log -3 --graph'
