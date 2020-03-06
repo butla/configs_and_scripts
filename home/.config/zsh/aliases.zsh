@@ -12,6 +12,8 @@ alias gco='git commit -a'
 alias gm='git mergetool'
 alias gp='git push'
 alias gpl='git pull'
+alias gf='git fetch'
+alias gr='git rebase -i'
 
 alias d='docker'
 alias dk='docker-compose'
