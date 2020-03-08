@@ -76,6 +76,7 @@ plugins=(
   virtualenv
   docker
   docker-compose
+  timer
 )
 
 source $ZSH/oh-my-zsh.sh
