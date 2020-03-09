@@ -14,6 +14,8 @@ alias gp='git push'
 alias gpl='git pull'
 alias gf='git fetch'
 alias gr='git rebase -i'
+# show the changes made on the current branch
+alias gdfb='git difftool --dir-diff $(git merge-base HEAD origin/master)'
 
 alias d='docker'
 alias dk='docker-compose'
