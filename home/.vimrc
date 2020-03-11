@@ -34,6 +34,8 @@ Plug 'python-rope/ropevim'
 Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
 " Python refactoring
 Plug 'python-rope/ropevim'
+" I use this for renaming stuff in Python
+Plug 'davidhalter/jedi-vim'
 
 call plug#end()
 
@@ -135,7 +137,8 @@ nmap <leader>] ]m
 nnoremap <leader>d :YcmCompleter GoToDefinition<CR>
 nnoremap <leader>c :YcmCompleter GetDoc<CR>
 nnoremap <leader>r :YcmCompleter GoToReferences<CR>
-nnoremap <leader>R :Semshi rename<CR>
+" nnoremap <leader>R :Semshi rename<CR>
+let g:jedi#rename_command = "<leader>R"
 
 " jumping around the quickfix list
 nnoremap <leader>j :cn<CR>
@@ -199,6 +202,17 @@ for linter in ['pylint', 'flake8', 'pycodestyle']
 endfor
 
 let g:ale_lint_on_text_changed = 'never'
+
+" disable jedi-vim completions and unused commands - something else will be taking care of that
+let g:jedi#completions_enabled = 0
+" only bind the needed jedi-vim commands
+let g:jedi#goto_command = ""
+let g:jedi#goto_assignments_command = ""
+let g:jedi#goto_stubs_command = ""
+let g:jedi#goto_definitions_command = ""
+let g:jedi#documentation_command = ""
+let g:jedi#usages_command = ""
+let g:jedi#completions_command = ""
 
 " Rainbow parentheses config
 let g:rainbow#pairs = [['(', ')'], ['[', ']']]
