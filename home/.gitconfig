@@ -18,3 +18,5 @@
 	helper = cache --timeout=10800
 [merge]
 	tool = meld
+[status]
+    showStash = true
