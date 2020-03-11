@@ -113,7 +113,7 @@ bindkey "^D" delete-char-or-list
 bindkey "^?" backward-delete-char
 
 # fzf for shell history
-source ~/.vim/bundle/fzf/shell/key-bindings.zsh
+source ~/.local/share/nvim/plugged/fzf/shell/key-bindings.zsh
 
 # bind cd with fzf to crtl+k in addition to esc+c (described as alt+c)
 bindkey '^K' fzf-cd-widget

@@ -1,44 +1,41 @@
-" Vundle setup
-set nocompatible              " required
-filetype off                  " required
+" vim-plug automatic download and setup
+if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
+  silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source ~/.vimrc
+endif
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
+call plug#begin(stdpath('data') . '/plugged')
 
 " code completions
-Plugin 'Valloric/YouCompleteMe'
+Plug 'ycm-core/YouCompleteMe', { 'do': './install.py' }
 " async linting and syntax checking
-Plugin 'w0rp/ale'
+Plug 'w0rp/ale'
 " text searching
-Plugin 'mileszs/ack.vim'
+Plug 'mileszs/ack.vim'
 " auto-close brackets, quotes, code structures, etc.
-Plugin 'Raimondi/delimitMate'
-Plugin 'tpope/vim-endwise'
+Plug 'Raimondi/delimitMate'
+Plug 'tpope/vim-endwise'
 " fast jumping around the visible text
-Plugin 'easymotion/vim-easymotion'
+Plug 'easymotion/vim-easymotion'
 " fuzzy file search
-Plugin 'junegunn/fzf'
-Plugin 'junegunn/fzf.vim'
-Plugin 'flazz/vim-colorschemes'
-Plugin 'junegunn/rainbow_parentheses.vim'
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
+Plug 'flazz/vim-colorschemes'
+Plug 'junegunn/rainbow_parentheses.vim'
 " close HTML tags
-Plugin 'alvan/vim-closetag'
+Plug 'alvan/vim-closetag'
 " commenting out
-Plugin 'tpope/vim-commentary'
+Plug 'tpope/vim-commentary'
 " Git integration
-Plugin 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
+Plug 'python-rope/ropevim'
+" Python semantic coloring
+Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
+" Python refactoring
+Plug 'python-rope/ropevim'
 
-" neovim-only plugins
-Plugin 'numirias/semshi'
-
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-
+call plug#end()
 
 " My settings follow
 if &term =~ '^screen'
