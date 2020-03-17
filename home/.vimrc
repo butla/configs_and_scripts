@@ -129,6 +129,9 @@ vmap K 30k
 
 " TODO bind a shortcut to type :%s:<CURSOR>:gc so that I can search and replace faster
 
+" copy the current file's path
+nmap cp :let @+ = expand("%")<CR>
+
 " jumping around method level code blocks with a nicer binding
 nmap <leader>[ [m
 nmap <leader>] ]m
