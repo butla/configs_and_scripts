@@ -1,4 +1,13 @@
 #!/bin/bash
+function run_container_in_pane()
+{
+    # vertical split, open above us with docker
+    tmux split-window -vdb docker-compose exec $1 bash
+    # TODO set pane title for the docker pane with select-pane -T XXX.
+    # It could be later used with list-panes -F '#{pane_title}' for the shortcut running tests from Vim.
+    # It should use send-keys to run the tests.
+}
+
 # Split panes horizontally and don't switch selection to the new pane to continue the script.
 # Set the pane to at 114 chars width, which can fit 110 chars of line length
 # (10 more than I like to have, just in case) and my vim line indicator.
@@ -9,12 +18,16 @@ tmux split-window -hd -l 114 zsh -ic v
 # vertical split, open above us with ranger for file management
 tmux split-window -vdb -p 40 ranger
 
-# TODO set pane title for the docker pane with select-pane -T XXX.
-# It could be later used with list-panes -F '#{pane_title}' for the shortcut running tests from Vim.
-# It should use send-keys to run the tests.
 if [ -f docker-compose.yml ]; then
-    echo should run the main container here
-    # TODO check if app container (called app or django) is defined with some C/rust yaml parser
+    declare -a MAIN_CONTAINER_NAMES=('app' 'django')
+    service_names=$(yq '.services | to_entries[] | .key' docker-compose.yml)
+
+    for main_container_name in ${MAIN_CONTAINER_NAMES[@]}; do
+        if echo $service_names | grep $main_container_name > /dev/null; then
+            run_container_in_pane $main_container_name
+            break
+        fi
+    done
 fi
 
 tmux select-pane -t 2
