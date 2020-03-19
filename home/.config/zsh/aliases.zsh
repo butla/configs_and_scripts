@@ -18,6 +18,8 @@ alias gr='git rebase -i'
 alias grb='git rebase -i $(git merge-base HEAD origin/master)'
 # show the changes made on the current branch
 alias gdfb='git difftool --dir-diff $(git merge-base HEAD origin/master)'
+# show the log of the current branch
+alias glb='git log $(git merge-base HEAD origin/master)..HEAD'
 
 alias d='docker'
 alias dk='docker-compose'
