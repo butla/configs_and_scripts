@@ -30,6 +30,7 @@ if [ -f docker-compose.yml ]; then
     done
 fi
 
+# switch to the vim view
 tmux select-pane -t 2
 # TODO write about this script - using ranger instead of nerdtree,
 # because I think it's a better window manager
