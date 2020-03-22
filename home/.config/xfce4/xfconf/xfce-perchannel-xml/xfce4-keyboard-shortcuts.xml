@@ -43,7 +43,7 @@
       <property name="&lt;Super&gt;t" type="string" value="alacritty --command tmux -2">
         <property name="startup-notify" type="bool" value="true"/>
       </property>
-      <property name="&lt;Super&gt;1" type="string" value="chromium"/>
+      <property name="&lt;Super&gt;1" type="string" value="brave"/>
       <property name="&lt;Alt&gt;q" type="string" value="xfce4-popup-whiskermenu"/>
       <property name="&lt;Super&gt;l" type="string" value="xflock4"/>
       <property name="&lt;Super&gt;3" type="string" value="keepassxc"/>

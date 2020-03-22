@@ -46,3 +46,6 @@ alias bluetooth_restart_bl='sudo usb_modeswitch -R -v 8087 -p 0a2b'
 
 alias subs='subliminal download -l en .'
 alias subspl='subliminal download -l pl .'
+
+# I like this as the default font
+alias toilet='toilet -f mono9'
