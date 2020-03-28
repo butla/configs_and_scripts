@@ -41,8 +41,11 @@ alias dockercomposeup='docker-compose up --build; docker-compose down -v'
 alias dockerports='docker ps --format "{{.Image}} >>> {{.Ports}}\n"'
 
 alias plasmarestart='killall plasmashell && kstart plasmashell'
-# restart bluetooth (and WiFi?) on bl laptop. Maybe should change the tlp setup?
+# Restart bluetooth devices on my machines.
+# Looks like they are being put to sleep and not waking.
+# Should maybe change the tlp setup, so they aren't put to sleep.
 alias bluetooth_restart_bl='sudo usb_modeswitch -R -v 8087 -p 0a2b'
+alias bluetooth_restart_b3='sudo usb_modeswitch -R -v 0cf3 -p e300'
 
 alias subs='subliminal download -l en .'
 alias subspl='subliminal download -l pl .'
