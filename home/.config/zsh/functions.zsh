@@ -63,3 +63,11 @@ function upgrade()
     echo "${bg[green]}---${reset_color}Looking for updates with flatpak${bg[green]}---${reset_color}"
     flatpak update;
 }
+
+function record_voice()
+{
+    NAME=recording
+    arecord -vv -fdat $NAME.wav
+    ffmpeg -i $NAME.wav -acodec mp3 $NAME.mp3
+    rm $NAME.wav
+}
