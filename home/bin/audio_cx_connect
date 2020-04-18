@@ -1,6 +1,6 @@
 #!/bin/bash
-bluetoothctl disconnect 00:1B:66:A1:C3:66
 sudo usb_modeswitch -R -v 8087 -p 0a2b
+bluetoothctl disconnect 00:1B:66:A1:C3:66
 # TODO maybe the device got stuck and will require more restarts
 
 bluetoothctl connect 00:1B:66:A1:C3:66
@@ -8,5 +8,36 @@ bluetoothctl connect 00:1B:66:A1:C3:66
 # TODO if there are errors, this might require repairing.
 # Prompt the user to enable pairing on the device again.
 # Then scan, and when it appears try pairing, when it pairs connect.
+# Flow:
+# - remove
+# - scan
+# - try pairing
+# - wait until it says pairing successful (
+# - connect
+
+# what was happening:
+# [bluetooth]# pair 00:1B:66:A1:C3:66
+# Attempting to pair with 00:1B:66:A1:C3:66
+# [CHG] Device 00:1B:66:A1:C3:66 Connected: yes
+# [CHG] Device 00:1B:66:A1:C3:66 UUIDs: 00001101-0000-1000-8000-00805f9b34fb
+# [CHG] Device 00:1B:66:A1:C3:66 UUIDs: 00001108-0000-1000-8000-00805f9b34fb
+# [CHG] Device 00:1B:66:A1:C3:66 UUIDs: 0000110b-0000-1000-8000-00805f9b34fb
+# [CHG] Device 00:1B:66:A1:C3:66 UUIDs: 0000110c-0000-1000-8000-00805f9b34fb
+# [CHG] Device 00:1B:66:A1:C3:66 UUIDs: 0000110e-0000-1000-8000-00805f9b34fb
+# [CHG] Device 00:1B:66:A1:C3:66 UUIDs: 0000111e-0000-1000-8000-00805f9b34fb
+# [CHG] Device 00:1B:66:A1:C3:66 UUIDs: 00001200-0000-1000-8000-00805f9b34fb
+# [CHG] Device 00:1B:66:A1:C3:66 ServicesResolved: yes
+# [CHG] Device 00:1B:66:A1:C3:66 Paired: yes
+# Pairing successful
+# [CHG] Device 00:1B:66:A1:C3:66 ServicesResolved: no
+# [CHG] Device 00:1B:66:A1:C3:66 Connected: no
+# [NEW] Device 5E:56:B7:36:FD:92 5E-56-B7-36-FD-92
+# [NEW] Device 79:60:9F:E7:FD:3A 79-60-9F-E7-FD-3A
+# [bluetooth]# connect 00:1B:66:A1:C3:66
+# Attempting to connect to 00:1B:66:A1:C3:66
+# Failed to connect: org.bluez.Error.Failed
+# [CHG] Device 00:1B:66:A1:C3:66 Connected: yes
+# [NEW] Device 30:F7:72:35:EB:F0 30-F7-72-35-EB-F0
+
 
 # TODO switch pulseaudio default sink to be cx
