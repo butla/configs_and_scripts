@@ -81,7 +81,7 @@ function say()
 
 function shrug()
 {
-    SHRUG='¯\_(ツ)_/¯'
-    echo "$SHRUG copied to clipboard..."
-    echo $SHRUG | xclip -selection clipboard
+    _SHRUG='¯\_(ツ)_/¯'
+    echo "$_SHRUG copied to clipboard..."
+    echo $_SHRUG | xclip -selection clipboard
 }
