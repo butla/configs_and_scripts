@@ -78,3 +78,10 @@ function say()
     # I know, it's a tortoise, ugh :) Upstream problems
     cowsay -f turtle "$@" | lolcat --freq 0.2 --seed 900 --speed 300 --animate
 }
+
+function shrug()
+{
+    SHRUG='¯\_(ツ)_/¯'
+    echo "$SHRUG copied to clipboard..."
+    echo $SHRUG | xclip -selection clipboard
+}
