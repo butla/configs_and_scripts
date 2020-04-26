@@ -71,3 +71,10 @@ function record_voice()
     ffmpeg -i $NAME.wav -acodec mp3 $NAME.mp3
     rm $NAME.wav
 }
+
+function say()
+{
+    clear
+    # I know, it's a tortoise, ugh :) Upstream problems
+    cowsay -f turtle "$@" | lolcat --freq 0.2 --seed 900 --speed 300 --animate
+}
