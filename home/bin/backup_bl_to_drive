@@ -23,4 +23,4 @@ sudo borg create --stats --progress \
     /vmlinuz \
     /vmlinuz.old
 
-sudo borg prune --stats --keep-last 10 ${BACKUP_LOCATION}
+sudo borg prune --stats --keep-last 10 "${BACKUP_LOCATION}"
