@@ -3,6 +3,8 @@ alias r='ranger'
 alias t='tmux -2'
 alias vv='tmux_ide_panel'
 
+# quick adding of untracked or changed files
+alias ga='git add $(git ls-files --modified --others --exclude-standard | fzf)'
 alias gs='git status'
 alias gl='git log -3 --graph'
 alias gdf='git difftool --dir-diff'
