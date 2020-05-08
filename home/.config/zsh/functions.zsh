@@ -62,6 +62,7 @@ function upgrade()
     fi
     echo "${bg[green]}---${reset_color}Looking for updates with flatpak${bg[green]}---${reset_color}"
     flatpak update;
+    snap refresh;
 }
 
 function record_voice()
