@@ -1,16 +1,15 @@
 #!/usr/bin/env python3
 from dataclasses import dataclass
 from pathlib import Path
-from pprint import pprint
 import re
 from typing import List, Iterable
 
 
 def should_create_link(path):
     return (
-        path.is_file() 
+        path.is_file()
         and path.suffix != '.pyc'
-        and not 'tests/' in str(path)
+        and 'tests/' not in str(path)
     )
 
 
