@@ -131,6 +131,9 @@ else
     export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='-p python3.7'
 fi
 
+# make python scripts use ipdb by default when debugging
+export PYTHONBREAKPOINT=ipdb.set_trace
+
 source $(which virtualenvwrapper.sh)
 
 source ~/.config/zsh/aliases.zsh
