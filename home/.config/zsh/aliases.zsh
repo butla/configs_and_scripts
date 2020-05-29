@@ -54,3 +54,5 @@ alias subspl='subliminal download -l pl .'
 
 # I like this as the default font
 alias toilet='toilet -f mono9'
+
+alias getpass='python -c "import secrets; print(secrets.token_urlsafe());" | xclip -selection clipboard'
