@@ -20,3 +20,5 @@
 	tool = meld
 [status]
     showStash = true
+[pull]
+	ff = only
