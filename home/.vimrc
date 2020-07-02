@@ -36,6 +36,7 @@ Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
 Plug 'python-rope/ropevim'
 " I use this for renaming stuff in Python
 Plug 'davidhalter/jedi-vim'
+Plug 'fisadev/vim-isort'
 
 call plug#end()
 
