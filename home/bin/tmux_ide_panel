@@ -1,8 +1,11 @@
 #!/bin/bash
 function run_container_in_pane()
 {
-    # vertical split, open above us with docker
-    tmux split-window -vdb docker-compose exec $1 bash
+    # vertical split, open above us
+    tmux split-window -vdb
+    # Attach to the container in that view. We don't immediately run the command in the split, so that
+    # the pane survives process exiting.
+    tmux send-keys -t 1 "docker-compose exec django bash" enter
     # TODO set pane title for the docker pane with select-pane -T XXX.
     # It could be later used with list-panes -F '#{pane_title}' for the shortcut running tests from Vim.
     # It should use send-keys to run the tests.
@@ -31,7 +34,7 @@ if [ -f docker-compose.yml ]; then
 fi
 
 # switch to the vim view
-tmux select-pane -t 2
+tmux select-pane -t 3
 # TODO write about this script - using ranger instead of nerdtree,
 # because I think it's a better window manager
 
