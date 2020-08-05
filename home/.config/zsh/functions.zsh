@@ -86,3 +86,9 @@ function shrug()
     echo "$_SHRUG copied to clipboard..."
     echo $_SHRUG | xclip -selection clipboard
 }
+
+function passwordgen()
+{
+    python3 -c "import secrets; print(secrets.token_urlsafe(16), end='')" | xclip -selection clipboard
+    echo "Password created and copied to clipboard..."
+}
