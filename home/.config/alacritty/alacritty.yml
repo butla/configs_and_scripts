@@ -78,7 +78,7 @@ scrolling:
 # Font configuration (changes require restart)
 font:
   # Normal (roman) font face
-  #normal:
+  # normal:
     # Font family
     #
     # Default:
@@ -86,7 +86,9 @@ font:
     #   - (Linux) monospace
     #   - (Windows) Consolas
     # this is the one I used to use on Manjaro
-    #family: Noto Sans Mono
+    # family: Noto Sans Mono
+    # this is the one I used to use on Ubuntu
+    # family: DejaVu Sans Mono
 
     # The `style` can be specified to pick a specific face.
     #style: Regular
