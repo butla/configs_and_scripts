@@ -33,8 +33,8 @@ if [ -f docker-compose.yml ]; then
     done
 fi
 
-# switch to the vim view
-tmux select-pane -t 3
+# switch to the vim view. It'll pane 3 if we have the Docker pane, pane 2 otherwise
+tmux select-pane -t 3 2> /dev/null || tmux select-pane -t 2
 # TODO write about this script - using ranger instead of nerdtree,
 # because I think it's a better window manager
 
