@@ -1,7 +1,9 @@
 #!/bin/bash
-sudo usb_modeswitch -R -v 8087 -p 0a2b
-bluetoothctl disconnect 00:1B:66:A1:C3:66
-# TODO maybe the device got stuck and will require more restarts
+set -e
+
+# TODO maybe these aren't needed? If CX shows as paired?
+# sudo usb_modeswitch -R -v 8087 -p 0a2b
+# bluetoothctl disconnect 00:1B:66:A1:C3:66
 
 bluetoothctl connect 00:1B:66:A1:C3:66
 
