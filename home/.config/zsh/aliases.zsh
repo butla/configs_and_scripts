@@ -4,25 +4,26 @@ alias t='tmux -2'
 alias vv='tmux_ide_panel'
 
 # quick adding of untracked or changed files
-alias ga='git add $(git ls-files --modified --others --exclude-standard | fzf)'
-alias gcf='git checkout -- $(git ls-files --modified --others --exclude-standard | fzf)'
+alias ga='git add $(git ls-files --modified --others --exclude-standard | fzf) && git status'
+alias gcf='git checkout -- $(git ls-files --modified --others --exclude-standard | fzf) && git status'
 alias gs='git status'
 alias gl='git log -3 --graph'
 alias gdf='git difftool --dir-diff'
 alias gd='git diff'
-alias gc='git checkout'
-alias gco='git commit -a'
-alias gm='git mergetool'
-alias gp='git push'
-alias gpl='git pull'
-alias gf='git fetch'
-alias gr='git rebase -i'
+alias gc='git checkout && echo ----------- && git status'
+alias gco='git commit -a && echo ----------- && git status'
+alias gm='git mergetool && echo ----------- && git status'
+alias gp='git push && echo ----------- && git status'
+alias gpl='git pull && echo ----------- && git status'
+alias gf='git fetch && echo ----------- && git status'
+alias gr='git rebase -i && echo ----------- && git status'
 # rebase the commits on the current branch
-alias grb='git rebase -i $(git merge-base HEAD origin/master)'
+alias grb='git rebase -i $(git merge-base HEAD origin/master) && echo ----------- && git status'
 # show the changes made on the current branch
 alias gdfb='git difftool --dir-diff $(git merge-base HEAD origin/master)'
 # show the log of the current branch
 alias glb='git log $(git merge-base HEAD origin/master)..HEAD'
+alias gclean='git reset --hard && git clean -f && echo ----------- && git status'
 
 alias d='docker'
 alias dk='docker-compose'
@@ -32,6 +33,9 @@ alias fdd='fd --hidden --follow --exclude .git'
 #
 # find everything
 alias fde='fd --hidden --follow --exclude .git --no-ignore'
+
+# find and edit file
+alias fv='vim $(fd --hidden --follow --exclude .git --no-ignore | fzf)'
 
 alias my_ip='http ipinfo.io'
 alias ag='ag --hidden --ignore .git -f'
