@@ -157,6 +157,10 @@ nnoremap <leader>. :FZF<CR>
 nnoremap <leader>, :Buffers<CR>
 nnoremap <leader>/ :Ag<CR>
 nnoremap ? :Ack ""<Left>
+" find a file in the Virtualenv
+nnoremap <leader>> :FZF $VIRTUAL_ENV/lib<CR>
+" find text in the Virtualenv
+nnoremap <leader>? :Ack "" $VIRTUAL_ENV/lib<C-Left><Left><Left>
 
 " useful keybindings for basic operations
 nnoremap <leader>q :bd<CR>
