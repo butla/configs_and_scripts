@@ -14,7 +14,7 @@ alias gd='git diff'
 alias gc='git checkout'
 alias gco='git commit -a'
 alias gm='git mergetool && echo ----------- && git status'
-alias gpl='git pull && echo ----------- && git status'
+alias gpl='git pull'
 alias gf='git fetch && echo ----------- && git status'
 alias gr='git rebase -i && echo ----------- && git status'
 # rebase the commits on the current branch
