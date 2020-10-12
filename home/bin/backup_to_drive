@@ -1,8 +1,11 @@
 #!/bin/bash
+set -e
+
 BACKUP_LOCATION=/media/butla/Seagate\ Backup\ Plus\ Drive/backup
 
 export BORG_PASSPHRASE=$(cat ~/.credentials/borg_key)
 
+echo "Creating a new backup\n=================="
 sudo -E borg create --stats --progress \
     --exclude /var/lib/lxcfs \
     --exclude /var/lib/docker \
@@ -38,4 +41,5 @@ sudo -E borg create --stats --progress \
     /vmlinuz \
     /vmlinuz.old
 
-sudo -E borg prune --stats --keep-last 10 "${BACKUP_LOCATION}"
+echo "Pruning old backups\n=================="
+sudo -E borg prune --stats --progress --keep-last 10 "${BACKUP_LOCATION}"
