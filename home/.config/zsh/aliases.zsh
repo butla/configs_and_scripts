@@ -16,7 +16,7 @@ alias gco='git commit -a'
 alias gm='git mergetool && echo ----------- && git status'
 alias gpl='git pull'
 alias gf='git fetch && echo ----------- && git status'
-alias gr='git rebase -i && echo ----------- && git status'
+alias gr='git rebase -i'
 # rebase the commits on the current branch
 alias grb='git rebase -i $(git merge-base HEAD origin/master) && echo ----------- && git status'
 # show the changes made on the current branch
