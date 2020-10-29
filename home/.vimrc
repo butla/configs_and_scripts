@@ -37,6 +37,8 @@ Plug 'python-rope/ropevim'
 " I use this for renaming stuff in Python
 Plug 'davidhalter/jedi-vim'
 Plug 'fisadev/vim-isort'
+" highlighting Python test coverage
+Plug 'mgedmin/coverage-highlight.vim'
 
 call plug#end()
 
