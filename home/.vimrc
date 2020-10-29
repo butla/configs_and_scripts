@@ -191,6 +191,9 @@ nnoremap <leader>f :execute "Ack " . expand("<cword>")<CR>
 " Should use that when YouCompleteMe fails to find references.
 nnoremap <leader>F :execute "vimgrep /" . expand("<cword>") . "/j **/*.py"<Bar>cw<CR>
 
+" tweaking the preview display of open buffers for the FZF plugin
+let g:fzf_preview_window = ['up:50%', 'ctrl-/']
+
 " making YouCompleteMe work nicely with virtualenv
 let g:ycm_python_binary_path = 'python'
 
