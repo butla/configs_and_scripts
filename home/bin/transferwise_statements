@@ -16,6 +16,8 @@ import requests
 
 token = None
 
+CURRENT_YEAR = 2020
+
 
 def main():
     global token
@@ -76,8 +78,15 @@ def get_month_ends(month: int) -> Tuple[str, str]:
         return as_utc.isoformat().replace('+00:00', 'Z')
 
     gb_timezone = pytz.timezone('Europe/London')
-    start_date = gb_timezone.localize(datetime(year=2020, month=month, day=1))
-    end_date = gb_timezone.localize(datetime(year=2020, month=month+1, day=1))
+    start_date = gb_timezone.localize(datetime(year=CURRENT_YEAR, month=month, day=1))
+
+    is_last_year_month = month == 12
+    if not is_last_year_month:
+        end_year, end_month = CURRENT_YEAR, month
+    else:
+        end_year, end_month = CURRENT_YEAR+1, 1
+
+    end_date = gb_timezone.localize(datetime(year=end_year, month=end_month, day=1))
     return to_utc_string(start_date), to_utc_string(end_date)
 
 
