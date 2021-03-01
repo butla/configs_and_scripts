@@ -60,4 +60,9 @@ alias subspl='subliminal download -l pl .'
 # I like this as the default font
 alias toilet='toilet -f mono9'
 
+# Create a safe password in Python and copy it into the clipboard.
+# Good for fast generation of passwords.
 alias getpass='python -c "import secrets; print(secrets.token_urlsafe());" | xclip -selection clipboard'
+
+# Show the JSON from a file in terminal. Does the nice render.
+alias jsonv='python -m json.tool'
