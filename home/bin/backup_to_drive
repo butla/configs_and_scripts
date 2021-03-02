@@ -16,6 +16,7 @@ sudo -E borg create --stats --progress \
     /data/komiksy \
     /data/muzyka \
     /data/nagrania_audio \
+    /data/materiały_na_internety \
     /data/programy_wlasne_i_innych \
     /data/sejwy \
     /data/studia \
