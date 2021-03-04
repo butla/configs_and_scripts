@@ -99,3 +99,27 @@ function gp()
     echo "-----------"
     git status
 }
+
+# fuzzy finding a file/directory and then going to its location (jumping)
+# TODO maybe should go into the directory if it's selected?
+function fj()
+{
+    CHOSEN_PATH=$(fzf)
+    if [ $? != 0 ]; then
+        echo '[[Jump cancelled]]'
+        return
+    fi
+    JUMP_TARGET=$(dirname ${CHOSEN_PATH})
+    cd $JUMP_TARGET
+}
+
+function vf()
+{
+
+    CHOSEN_FILE=$(fd --hidden --follow --exclude .git --no-ignore | fzf)
+    if [ $? != 0 ]; then
+        echo '[[Edit cancelled]]'
+        return
+    fi
+    vim $CHOSEN_FILE
+}

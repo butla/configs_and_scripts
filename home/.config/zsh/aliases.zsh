@@ -39,9 +39,6 @@ alias fdd='fd --hidden --follow --exclude .git'
 # find everything
 alias fde='fd --hidden --follow --exclude .git --no-ignore'
 
-# find and edit file
-alias fv='vim $(fd --hidden --follow --exclude .git --no-ignore | fzf)'
-
 alias my_ip='http ipinfo.io'
 alias ag='ag --hidden --ignore .git -f'
 
