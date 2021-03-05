@@ -1,3 +1,4 @@
+# we want the python from the current active virtualenv
 alias vim='PYTHONPATH=$(pwd) vim'
 alias r='ranger'
 alias t='tmux -2'
@@ -68,3 +69,10 @@ alias getpass='python -c "import secrets; print(secrets.token_urlsafe());" | xcl
 
 # Show the JSON from a file in terminal. Does the nice render.
 alias jsonv='python -m json.tool'
+
+# TODO sync folder over Rsync from another machine. Show diffs of conflicts with git --no-index
+# Or use Unison?
+# TODO do dry run first and ask
+# TODO should be a function
+# -vv so that we see what files were skipped by update, so we can show alerts if something wasn't synced (cause it was changed in two places)
+alias rrsync='rsync --archive --update --dry-run -vv'
