@@ -120,6 +120,22 @@ highlight Normal guibg=NONE ctermbg=NONE
 set spell spelllang=en_us
 set spellfile=~/.vim/en.utf-8.add
 
+" toggle between English and Polish spell-checking
+nmap <leader>l :call ToggleSpellingLanguage()<CR>
+
+" Set the initial value of the variable.
+autocmd BufNewFile,BufFilePre,BufRead * let g:polish_spellcheck_enabled=0
+
+function! ToggleSpellingLanguage()
+    if g:polish_spellcheck_enabled
+        let g:polish_spellcheck_enabled=0
+        setlocal spelllang=en_us
+    else
+        let g:polish_spellcheck_enabled=1
+        setlocal spelllang=pl
+    endif
+endfunction
+
 " Unbind space from doing anything in normal mode, make it the leader key.
 noremap <Space> <NOP>
 let mapleader = " "
