@@ -18,6 +18,8 @@ token = None
 
 CURRENT_YEAR = 2021
 
+# TODO I'm getting 403
+
 
 def main():
     global token
@@ -82,7 +84,7 @@ def get_month_ends(month: int) -> Tuple[str, str]:
 
     is_last_year_month = month == 12
     if not is_last_year_month:
-        end_year, end_month = CURRENT_YEAR, month
+        end_year, end_month = CURRENT_YEAR, month+1
     else:
         end_year, end_month = CURRENT_YEAR+1, 1
 
