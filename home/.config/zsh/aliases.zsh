@@ -65,7 +65,10 @@ alias toilet='toilet -f mono9'
 
 # Create a safe password in Python and copy it into the clipboard.
 # Good for fast generation of passwords.
-alias getpass='python -c "import secrets; print(secrets.token_urlsafe());" | xclip -selection clipboard'
+alias genpass='python -c "import secrets; print(secrets.token_urlsafe());" | xclip -selection clipboard'
+
+# Generate an RSA key
+alias genkey='ssh-keygen -t rsa -b 4096'
 
 # Show the JSON from a file in terminal. Does the nice render.
 alias jsonv='python -m json.tool'
