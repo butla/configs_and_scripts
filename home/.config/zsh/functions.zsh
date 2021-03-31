@@ -113,6 +113,7 @@ function fj()
     cd $JUMP_TARGET
 }
 
+# Fuzzily find a file and open it with the current editor (which should be neovim, of course :) )
 function vf()
 {
 
@@ -121,5 +122,5 @@ function vf()
         echo '[[Edit cancelled]]'
         return
     fi
-    vim $CHOSEN_FILE
+    $EDITOR $CHOSEN_FILE
 }
