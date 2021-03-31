@@ -124,7 +124,8 @@ function vf()
     $EDITOR $CHOSEN_FILE
 }
 
-# gets the name of the current directory
+# Gets the name of the current directory.
+# I couldn't find a satisfactorily readable method for doing that with just the shell.
 function current_directory()
 {
     echo $(python3 -c "from pathlib import Path; print(Path('.').absolute().name)")
@@ -135,4 +136,12 @@ function mkvirt()
 {
     # uses mkvirtualenv from https://pypi.org/project/virtualenvwrapper/
     mkvirtualenv $(current_directory)
+}
+
+# Enters a virtualenv for the current project.
+# Assumes that the virtualenv is created by virtualenvwrapper
+# and is called the same as the current directory/project.
+function venventer()
+{
+    workon $(current_directory)
 }
