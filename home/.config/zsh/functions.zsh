@@ -116,11 +116,23 @@ function fj()
 # Fuzzily find a file and open it with the current editor (which should be neovim, of course :) )
 function vf()
 {
-
     CHOSEN_FILE=$(fd --hidden --follow --exclude .git --no-ignore | fzf)
     if [ $? != 0 ]; then
         echo '[[Edit cancelled]]'
         return
     fi
     $EDITOR $CHOSEN_FILE
+}
+
+# gets the name of the current directory
+function current_directory()
+{
+    echo $(python3 -c "from pathlib import Path; print(Path('.').absolute().name)")
+}
+
+# create a virtualenv for the current directory, which should be a python project
+function mkvirt()
+{
+    # uses mkvirtualenv from https://pypi.org/project/virtualenvwrapper/
+    mkvirtualenv $(current_directory)
 }
