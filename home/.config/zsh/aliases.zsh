@@ -79,3 +79,7 @@ alias jsonv='python -m json.tool'
 # TODO should be a function
 # -vv so that we see what files were skipped by update, so we can show alerts if something wasn't synced (cause it was changed in two places)
 alias rrsync='rsync --archive --update --dry-run -vv'
+
+# Corrects the overscan that I can't disable on this one Sony Bravia TV
+# Source of the fix: https://wiki.archlinux.org/index.php/Xrandr#Correction_of_overscan_tv_resolutions_via_the_underscan_property
+alias tv_sony_bravia_overscan_fix='xrandr --output HDMI-A-0 --set underscan on --set "underscan vborder" 50 --set "underscan hborder" 94'
