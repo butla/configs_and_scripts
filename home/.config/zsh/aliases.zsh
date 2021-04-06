@@ -83,3 +83,10 @@ alias rrsync='rsync --archive --update --dry-run -vv'
 # Corrects the overscan that I can't disable on this one Sony Bravia TV
 # Source of the fix: https://wiki.archlinux.org/index.php/Xrandr#Correction_of_overscan_tv_resolutions_via_the_underscan_property
 alias tv_sony_bravia_overscan_fix='xrandr --output HDMI-A-0 --set underscan on --set "underscan vborder" 50 --set "underscan hborder" 94'
+
+# Sends a ping every second, redirects the output of that into `tee` which saves output to a file and
+# displays it on the screen as it flows in.
+# Records the start-time in the file name.
+#
+# Should I be using Google's DNS as the target? Maybe they shouldn't get my IP?
+alias ping_measure='ping -i 1 8.8.8.8 | tee ping_measurement_from_$(date --iso-8601=seconds).txt'
