@@ -22,3 +22,5 @@
     showStash = true
 [pull]
 	ff = only
+[log]
+	date = iso
