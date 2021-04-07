@@ -116,6 +116,10 @@ highlight Normal guibg=NONE ctermbg=NONE
 " This limits the number of columns to be colored.
 " set synmaxcol=200
 
+" Unbind space from doing anything in normal mode, make it the leader key.
+noremap <Space> <NOP>
+let mapleader = " "
+
 " spell-checking
 set spell spelllang=en_us
 set spellfile=~/.vim/en.utf-8.add
@@ -135,10 +139,6 @@ function! ToggleSpellingLanguage()
         setlocal spelllang=pl
     endif
 endfunction
-
-" Unbind space from doing anything in normal mode, make it the leader key.
-noremap <Space> <NOP>
-let mapleader = " "
 
 "bind J and K to moving around
 nmap J 30j
