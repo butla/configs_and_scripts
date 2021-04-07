@@ -90,3 +90,5 @@ alias tv_sony_bravia_overscan_fix='xrandr --output HDMI-A-0 --set underscan on -
 #
 # Should I be using Google's DNS as the target? Maybe they shouldn't get my IP?
 alias ping_measure='ping -i 1 8.8.8.8 | tee ping_measurement_from_$(date --iso-8601=seconds).txt'
+
+alias pia_download='brave https://www.privateinternetaccess.com/installer/x/download_installer_linux'
