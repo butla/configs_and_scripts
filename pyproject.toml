@@ -12,7 +12,7 @@ build-backend = "poetry.core.masonry.api"
 [tool.pylint.FORMAT]
 max-line-length=120
 
-# TODO make this work
+# TODO figure why this setting isn't being respected by pylint run from Ale and then remove .pylintrc
 [tool.pylint.'MESSAGES CONTROL']
 disable = "missing-function-docstring"
 
