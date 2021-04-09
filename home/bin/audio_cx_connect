@@ -1,11 +1,56 @@
 #!/bin/bash
 set -e
 
-# TODO maybe these aren't needed? If CX shows as paired?
+# see the audio cards:
+# pactl list cards
+
+echo Setting the default audio sink to the bluetooth card in A2DP mode
+pactl set-default-sink bluez_sink.00_1B_66_A1_C3_66.a2dp_sink
+# maybe pactl set-card-profile bluez_card.E8_99_FF_22_76_44 a2dp
+
+echo Switching the current process outputs to that same sink
+
+# TODO add repairing and maybe restarting the bluetooth device here
+#
+# maybe these aren't needed? If CX shows as paired?
 # sudo usb_modeswitch -R -v 8087 -p 0a2b
 # bluetoothctl disconnect 00:1B:66:A1:C3:66
 
-bluetoothctl connect 00:1B:66:A1:C3:66
+# device not connected:
+# [bluetooth]# info
+# Missing device address argument
+
+# When device is connected:
+# bluetoothctl info                                                   1 ↵
+# Device 00:1B:66:A1:C3:66 (public)
+#         Name: CX SPORT
+#         Alias: CX SPORT
+#         Class: 0x00240404
+#         Icon: audio-card
+#         Paired: yes
+#         Trusted: yes
+#         Blocked: no
+#         Connected: yes
+#         LegacyPairing: no
+#         UUID: Serial Port               (00001101-0000-1000-8000-00805f9b34fb)
+#         UUID: Headset                   (00001108-0000-1000-8000-00805f9b34fb)
+#         UUID: Audio Sink                (0000110b-0000-1000-8000-00805f9b34fb)
+#         UUID: A/V Remote Control Target (0000110c-0000-1000-8000-00805f9b34fb)
+#         UUID: Advanced Audio Distribu.. (0000110d-0000-1000-8000-00805f9b34fb)
+#         UUID: A/V Remote Control        (0000110e-0000-1000-8000-00805f9b34fb)
+#         UUID: Handsfree                 (0000111e-0000-1000-8000-00805f9b34fb)
+#         UUID: PnP Information           (00001200-0000-1000-8000-00805f9b34fb)
+#         Modalias: usb:v1377p600Cd0100
+
+
+# after some time of not using, the earphones disconnect and
+#
+# bluetoothctl connect 00:1B:66:A1:C3:66
+#
+# doesn't help.
+# reconnecting the earphones does work, though.
+# Script should say reconnect then press enter,
+# or hit ctr+c (interrupt process) or ctrl+d (end of input/file) to quit.
 
 # TODO if there are errors, this might require repairing.
 # Prompt the user to enable pairing on the device again.
@@ -40,6 +85,3 @@ bluetoothctl connect 00:1B:66:A1:C3:66
 # Failed to connect: org.bluez.Error.Failed
 # [CHG] Device 00:1B:66:A1:C3:66 Connected: yes
 # [NEW] Device 30:F7:72:35:EB:F0 30-F7-72-35-EB-F0
-
-
-# TODO switch pulseaudio default sink to be cx
