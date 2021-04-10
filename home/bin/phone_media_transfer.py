@@ -26,7 +26,7 @@ from zipfile import ZipFile
 
 MEDIA_DIR=Path('/storage/9C33-6BBD/DCIM/Camera/')
 # TODO is this the right path?
-PC_PHOTOS_DIR='/data/zdjęcia_i_filmiki/z_telefonu_mego/samsung_s10'
+PC_PHOTOS_DIR='/data/zdjęcia_i_filmiki/z_telefonu_mego/samsung_note10/'
 
 
 def _get_latest_photo_on_pc(pc_ip: str) -> str:
