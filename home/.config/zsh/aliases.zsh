@@ -14,6 +14,7 @@ alias gd='git diff'
 # can't have the status and needs to be an alias, so that I get completions for branches :(
 alias gc='git checkout'
 alias gco='git commit -a'
+alias gcoo='git commit'
 alias gm='git mergetool && echo ----------- && git status'
 alias gpl='git pull'
 alias gf='git fetch && echo ----------- && git status'
