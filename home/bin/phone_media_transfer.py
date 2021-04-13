@@ -18,18 +18,17 @@ A script to run on your phone (running in Termux under Android).
 import argparse
 import shlex
 import subprocess
-import sys
 from datetime import datetime
 from pathlib import Path
 from typing import List, Optional
-from zipfile import ZipFile
 
-MEDIA_DIR=Path('/storage/9C33-6BBD/DCIM/Camera/')
-# TODO is this the right path?
-PC_PHOTOS_DIR='/data/zdjęcia_i_filmiki/z_telefonu_mego/samsung_note10/'
+MEDIA_DIR = Path('/storage/9C33-6BBD/DCIM/Camera/')
+PC_PHOTOS_DIR = '/data/zdjęcia_i_filmiki/z_telefonu_mego/samsung_note10/'
+# if I'll add libraries I should use this https://github.com/ActiveState/appdirs
+TRANSFER_LOGS_DIR = Path('~/.local/share/phone_media_transfer/').expanduser()
 
 
-def _get_latest_photo_on_pc(pc_ip: str) -> str:
+def _get_latest_synced_media_file(pc_ip: str) -> str:
     get_photo_command = shlex.split(f'ssh butla@{pc_ip} "~/bin/ostatnia_fota"')
     photo_path = subprocess.check_output(get_photo_command).decode().strip()
     return Path(photo_path).name
@@ -38,7 +37,7 @@ def _get_latest_photo_on_pc(pc_ip: str) -> str:
 def _transfer_photos(files_to_send: List[Path], pc_ip: str, target_path: str = PC_PHOTOS_DIR):
     # Prepending ./ so that rsync knows this is a local file path.
     # TODO make this timezone aware
-    media_list_filename = f'./photos_to_transfer_on_{datetime.now().isoformat()}.txt'
+    media_list_filename = TRANSFER_LOGS_DIR / f'media_to_transfer_on_{datetime.now().isoformat()}.txt'
     with open(media_list_filename, 'w') as media_list_file:
         for path in files_to_send:
             # Taking only the name of the file, so that all paths are relative to the media directory,
@@ -73,8 +72,10 @@ def _get_files_to_send(
         if path.name > older_than_file_name
     )
     if up_to_file:
-        return [path for path in files_without_upper_boundary if path.name <= up_to_file]
-    return list(files_without_upper_boundary)
+        files = (path for path in files_without_upper_boundary if path.name <= up_to_file)
+    else:
+        files = files_without_upper_boundary
+    return sorted(files)
 
 
 def _parse_program_args() -> argparse.Namespace:
@@ -96,7 +97,7 @@ def send_over_wlan(
 ):
     if not last_synced_file:
         print('Checking the last photo on the PC...')
-        last_synced_file = _get_latest_photo_on_pc(pc_ip)
+        last_synced_file = _get_latest_synced_media_file(pc_ip)
         print('Last photo on the PC is', last_synced_file)
 
     up_to_file_message = up_to_file if up_to_file else 'latest'
