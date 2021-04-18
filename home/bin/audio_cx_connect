@@ -4,6 +4,9 @@ set -e
 # see the audio cards:
 # pactl list cards
 
+# connect to the earphones
+bluetoothctl connect 00:1B:66:A1:C3:66
+
 echo Setting the default audio sink to the bluetooth card in A2DP mode
 pactl set-default-sink bluez_sink.00_1B_66_A1_C3_66.a2dp_sink
 # maybe pactl set-card-profile bluez_card.E8_99_FF_22_76_44 a2dp
