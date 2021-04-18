@@ -86,12 +86,15 @@ def _parse_program_args() -> argparse.Namespace:
                         help='Take media files after this one.')
     parser.add_argument('up_to_file', nargs='?', type=str, default='',
                         help='Take media files up to and including this one.')
+    # TODO maybe there should be a mapping of target locations for given hostnames
+    parser.add_argument('--dest-dir', type=str, default=PC_PHOTOS_DIR)
 
     return parser.parse_args()
 
 
 def send_over_wlan(
         pc_ip: str,
+        destination_directory: str,
         last_synced_file: Optional[str] = None,
         up_to_file: Optional[str] = None,
 ):
@@ -108,7 +111,7 @@ def send_over_wlan(
         older_than_file_name=last_synced_file,
         up_to_file=up_to_file,
     )
-    _transfer_photos(files_to_send, pc_ip)
+    _transfer_photos(files_to_send, pc_ip, target_path=destination_directory)
 
     print('Success!')
 
@@ -117,6 +120,7 @@ if __name__ == '__main__':
     arg_parser = _parse_program_args()
     send_over_wlan(
         pc_ip=arg_parser.pc_ip,
+        destination_directory=arg_parser.dest_dir,
         last_synced_file=arg_parser.files_after,
         up_to_file=arg_parser.up_to_file,
     )
