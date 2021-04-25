@@ -17,6 +17,7 @@ A script to run on your phone (running in Termux under Android).
 
 import argparse
 import shlex
+import shutil
 import subprocess
 from datetime import datetime
 from pathlib import Path
@@ -80,6 +81,8 @@ def _get_files_to_send(
 
 def _parse_program_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description='Transfers media files to another machine.')
+    # TODO make this a "source"
+    # Can either be a local dir (if you're using simple-mtpfs) or an IP address.
     parser.add_argument('pc_ip', type=str,
                         help='IP of the machine we are transferring the photos to')
     parser.add_argument('files_after', nargs='?', type=str, default='',
@@ -116,7 +119,21 @@ def send_over_wlan(
     print('Success!')
 
 
+def pull_over_cable_with_mtp():
+    # first mount the mtp filesystem with simple-mtpfs -v --device 1 ~/Downloads/bla
+    # Keep the process in the background. Stop it after the transfer.
+    # It might take a while before the files start getting read.
+    files = _get_files_to_send(
+        media_folder=Path('/home/butla/Downloads/bla/Card/DCIM/Camera'),
+        older_than_file_name='20210425',
+    )
+    print('there are', len(files), 'files')
+    for file in files:
+        shutil.copy(file, 'transfer_target')
+        print('Copied', file)
+
 if __name__ == '__main__':
+    # pull_over_cable_with_mtp()
     arg_parser = _parse_program_args()
     send_over_wlan(
         pc_ip=arg_parser.pc_ip,
