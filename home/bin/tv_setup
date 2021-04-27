@@ -1,0 +1,5 @@
+#!/bin/bash
+# no nice UI scaling in Manjaro's XFCE yet, from what I saw, so I'm using 1920x1080
+xrandr --output HDMI-A-0 --mode 1920x1080
+# switch audio to HDMI
+pactl set-default-sink alsa_output.pci-0000_02_00.1.hdmi-stereo-extra1
