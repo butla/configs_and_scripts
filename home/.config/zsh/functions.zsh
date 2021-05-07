@@ -150,7 +150,7 @@ function subspl()
 {
     subliminal download -l pl .
     if [[ $(file *.pl.srt) == *"Non-ISO"* ]]; then
-        echo "Fixing a windows-1250 subtutle file..."
+        echo "Fixing a windows-1250 subtitle file..."
         windows-1250-to-utf-8 *.pl.srt
     fi
 }
