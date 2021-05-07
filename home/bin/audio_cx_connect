@@ -11,7 +11,11 @@ echo Setting the default audio sink to the bluetooth card in A2DP mode
 pactl set-default-sink bluez_sink.00_1B_66_A1_C3_66.a2dp_sink
 # maybe pactl set-card-profile bluez_card.E8_99_FF_22_76_44 a2dp
 
-echo Switching the current process outputs to that same sink
+echo Playing a sound to test the earphones
+canberra-gtk-play -i bell
+
+
+
 
 # TODO add repairing and maybe restarting the bluetooth device here
 #
