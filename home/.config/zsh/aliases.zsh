@@ -92,3 +92,7 @@ alias tv_sony_bravia_overscan_fix='xrandr --output HDMI-A-0 --set underscan on -
 alias ping_measure='ping -i 1 8.8.8.8 | tee ping_measurement_from_$(date --iso-8601=seconds).txt'
 
 alias pia_download='brave https://www.privateinternetaccess.com/installer/x/download_installer_linux'
+
+alias printers_list='lpstat -p -d'
+alias printer_print_options='lpoptions -d Brother_DCP_J772DW -l'
+alias print_pdf_black_and_white='lpr -P Brother_DCP_J772DW -o ColorModel=Gray'
