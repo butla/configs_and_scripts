@@ -60,6 +60,9 @@ set shiftwidth=4
 " TODO (doesn't work yet) don't fold anything in files by default
 set foldlevelstart=10
 
+" I usually want my text and code at up to 120 characters. Formatting done with gqgq
+set textwidth=120
+
 " working with the system clipboard (requires vim-gtk3)
 set clipboard=unnamedplus
 
