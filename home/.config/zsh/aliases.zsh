@@ -84,6 +84,7 @@ alias rrsync='rsync --archive --update --dry-run -vv'
 # Source of the fix: https://wiki.archlinux.org/index.php/Xrandr#Correction_of_overscan_tv_resolutions_via_the_underscan_property
 alias tv_sony_bravia_overscan_fix='xrandr --output HDMI-A-0 --set underscan on --set "underscan vborder" 50 --set "underscan hborder" 94'
 
+alias tv_barcelo_santiago_overscan_fix='xrandr --output HDMI-A-0 --set underscan on --set "underscan vborder" 20 --set "underscan hborder" 40'
 # Sends a ping every second, redirects the output of that into `tee` which saves output to a file and
 # displays it on the screen as it flows in.
 # Records the start-time in the file name.
