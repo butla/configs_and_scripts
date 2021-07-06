@@ -141,7 +141,7 @@ function mkvirt()
 # Enters a virtualenv for the current project.
 # Assumes that the virtualenv is created by virtualenvwrapper
 # and is called the same as the current directory/project.
-function venventer()
+function workonc()
 {
     workon $(current_directory)
 }
