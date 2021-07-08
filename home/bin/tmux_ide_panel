@@ -16,7 +16,7 @@ function run_container_in_pane()
 # (10 more than I like to have, just in case) and my vim line indicator.
 # That is, when the line length is below of 1000, which is the case with most files I edit.
 # Runs my ZSH function that runs vim with some setup magics in the pane created in the split.
-tmux split-window -hd -l 114 zsh -ic v
+tmux split-window -hd -l 124 zsh -ic v
 
 # vertical split, open above us with ranger for file management
 tmux split-window -vdb -p 40 ranger
