@@ -4,4 +4,4 @@ test:
 	PYTHONPATH=. pytest -v tests
 
 install_links:
-	python3.7 install/setup_system_links.py
+	python3 install/setup_system_links.py
