@@ -3,6 +3,7 @@ set -e
 EFI_PARTITION=/dev/nvme0n1p1
 # get this from `sudo blkid`
 CRYPT_PARTITION_ID=050a93bf-d0d3-4d01-83c7-b65d060d2cc5
+CRYPT_PARTITION_NAME=crypt
 
 function log() {
     echo '---' $(date --iso-8601=seconds) $@ '---'
@@ -26,7 +27,7 @@ cat <<EOF | sudo tee /mnt/etc/crypttab > /dev/null
 #       for resume support.
 #
 # <name>	<device>			<password>	<options>
-crypt		UUID=$CRYPT_PARTITION_ID	none		luks
+$CRYPT_PARTITION_NAME	UUID=$CRYPT_PARTITION_ID	none luks
 EOF
 
 # the only thing I'm changing here is the root (/) UUID
@@ -55,7 +56,8 @@ sudo chroot /mnt <<EOF
 # Modify grub config.
 # I'm stealing the stuff from the new Manjaro installing in an encrypted partition right now.
 # I definitely don't want it with "quiet". I want to get logs. I'll see if something is off that way.
-sed -i -E 's|GRUB_CMDLINE_LINUX_DEFAULT=".+"|GRUB_CMDLINE_LINUX_DEFAULT="apparmor=1 security=apparmor udev.log_priority=3"|' /etc/default/grub
+# The necessary thing is the cryptdevice option.
+sed -i -E 's|GRUB_CMDLINE_LINUX_DEFAULT=".+"|GRUB_CMDLINE_LINUX_DEFAULT="cryptdevice=UUID=${CRYPT_PARTITION_ID}:${CRYPT_PARTITION_NAME} apparmor=1 security=apparmor udev.log_priority=3"|' /etc/default/grub
 
 # This is needed so that grub config and install will work.
 # If you're writing typing this and not copying it, notice there's efivarFs and efivars.
