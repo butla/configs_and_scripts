@@ -45,6 +45,10 @@ tmpfs                                     /tmp           tmpfs   defaults,noatim
 /swapfile 				  none 		 swap 	 defaults 0 0
 EOF
 
+log "Adding LVM and LUKS modules to the initial ramdisk for the OS"
+# New modules (encrypt and lvm2) and "keyboard" need to be before filesystems, according to TODO link!
+sudo sed -i -E 's|^HOOKS=.*|HOOKS="base udev autodetect modconf block keyboard keymap encrypt lvm2 filesystems"|' /mnt/etc/mkinitcpio.conf
+
 log "Sending commands to the Manjaro install through chroot"
 sudo chroot /mnt <<EOF
 
