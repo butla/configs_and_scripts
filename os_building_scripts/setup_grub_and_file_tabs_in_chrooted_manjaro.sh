@@ -57,6 +57,9 @@ sed -i -E 's|GRUB_CMDLINE_LINUX_DEFAULT=".+"|GRUB_CMDLINE_LINUX_DEFAULT="apparmo
 # If you're writing typing this and not copying it, notice there's efivarFs and efivars.
 mount -t efivarfs efivarfs /sys/firmware/efi/efivars
 
+# rebuild initramfs - might be needed for the LUKS container in LVM.
+mkinitcpio -P
+
 # preparing the config for grub
 grub-mkconfig -o /boot/grub/grub.cfg  
 
