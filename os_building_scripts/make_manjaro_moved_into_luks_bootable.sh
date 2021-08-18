@@ -59,7 +59,9 @@ sudo chroot /mnt <<EOF
 # The necessary thing is the cryptdevice option.
 sed -i -E 's|GRUB_CMDLINE_LINUX_DEFAULT=".+"|GRUB_CMDLINE_LINUX_DEFAULT="cryptdevice=UUID=${CRYPT_PARTITION_ID}:${CRYPT_PARTITION_NAME} apparmor=1 security=apparmor udev.log_priority=3"|' /etc/default/grub
 
-# This is needed so that grub config and install will work.
+# This is needed so that grub-mkconfig and grub-install will work.
+# At least it was needed on Manjaro. Try efivar-tester command to see if you need this.
+# I got it from https://gist.github.com/greginvm/af68bef3c81a9594a80d
 # If you're writing typing this and not copying it, notice there's efivarFs and efivars.
 mount -t efivarfs efivarfs /sys/firmware/efi/efivars
 

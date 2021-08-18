@@ -1,7 +1,9 @@
 #!/bin/bash
 set -e
 
-# TODO replace echoes with a custom "log" function
+function log() {
+    echo '---' $(date --iso-8601=seconds) $@ '---'
+}
 
 # Gotta repartition in GParted first. (You can also do it with fdisk if you're so inclined.)
 # After repartition, I get a layout like this:
@@ -23,7 +25,7 @@ set -e
 
 PARTITION_FOR_LUKS=/dev/nvme0n1p3
 
-echo ---creating the LUKS container in the chosen partition---
+log "creating the LUKS container in the chosen partition"
 # Use luks1 - it looks like GRUB can't handle being loaded from LUKS2 partitions just yet.
 # https://unix.stackexchange.com/questions/298068/system-unbootable-grub-error-disk-lvmid-not-found#420334
 sudo cryptsetup luksFormat --type luks1 $PARTITION_FOR_LUKS
@@ -31,12 +33,12 @@ sudo cryptsetup luksFormat --type luks1 $PARTITION_FOR_LUKS
 VG_NAME=vg0
 MANJARO_VOLUME_NAME=manjaro
 
-echo ---opening the new LUKS container---
+log "opening the new LUKS container"
 sudo cryptsetup luksOpen $PARTITION_FOR_LUKS crypt
-echo ---making the LUKS container into an LVM partition---
+log "making the LUKS container into an LVM partition"
 sudo lvm pvcreate /dev/mapper/crypt
 sudo vgcreate $VG_NAME /dev/mapper/crypt
-echo ---creating a single logical volume for Manjaro---
+log "creating a single logical volume for Manjaro"
 # We'll leave some space for another operating system.
 # That one can share /boot, which includes the GRUB.
 sudo lvcreate -L 853G -n $MANJARO_VOLUME_NAME $VG_NAME
@@ -44,18 +46,18 @@ sudo lvcreate -L 853G -n $MANJARO_VOLUME_NAME $VG_NAME
 # I'm expecting the drive to be manually mounted here
 cd "/run/media/manjaro/Seagate Backup Plus Drive"
 
-echo ---recreating the EFI partition---
+log "recreating the EFI partition"
 sudo dd if=bl_efi_partition_image.bin of=/dev/nvme0n1p1 bs=8M status=progress
-echo '---recreating the boot (GRUB and kernel) partition---'
+log 'recreating the boot (GRUB and kernel) partition'
 sudo dd if=bl_boot_partition_image.bin of=/dev/nvme0n1p2 bs=8M status=progress
 
 MANJARO_VOLUME_PATH=/dev/${VG_NAME}/${MANJARO_VOLUME_NAME}
 MANJARO_IMAGE_SIZE=$(du -h '/run/media/manjaro/Seagate Backup Plus Drive/bl_root_partition_image.bin' | cut -f 1)
-echo "---recreating the root Manjaro partition in ${MANJARO_VOLUME_PATH}---"
-echo "---data size to copy ${MANJARO_IMAGE_SIZE}---"
+log "recreating the root Manjaro partition in ${MANJARO_VOLUME_PATH}"
+log "data size to copy ${MANJARO_IMAGE_SIZE}"
 sudo dd if=bl_root_partition_image.bin of=${MANJARO_VOLUME_PATH} bs=8M status=progress
 
-echo ---presenting the current state of partitions---
+log "presenting the current state of partitions"
 lsblk | grep -v loop
 
 # Mine looks like this:
@@ -73,12 +75,7 @@ lsblk | grep -v loop
 #     └─vg0-manjaro 254:1    0   853G  0 lvm
 
 
-# Write stuff down as scripts... You'll never know how many times you'll have to rerun this shit.
-# And it'll get painful. Stay sane and strong - automate :)
-
-# TODO check crypttab, fstab and GRUB cmdline
-# write the tabs with the script. Maybe another one.
-
 # Useful snippets
 # ===============
+# # closing the LVM and LUKS container
 # sudo vgchange -a n vg0 && sudo cryptsetup luksClose crypt

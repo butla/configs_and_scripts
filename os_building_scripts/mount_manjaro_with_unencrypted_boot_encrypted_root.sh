@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Reguires partitions being retrieved to the new drive.
+# Requires partitions being retrieved to the new drive.
 
 set -e
 
