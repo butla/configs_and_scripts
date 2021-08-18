@@ -21,7 +21,7 @@ sudo -E borg create --stats --progress \
     /data/sejwy \
     /data/studia \
     /data/teksty \
-    /data/vms \
+    /data/wiedza \
     /data/zdjęcia_i_filmiki \
     /bin \
     /boot \
