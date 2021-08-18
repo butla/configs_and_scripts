@@ -12,6 +12,9 @@
   # available, otherwise `xterm-256color` is used.
   #TERM: xterm-256color
 
+import:
+  - ~/.config/alacritty/machine-specific.yml
+
 window:
   # Window dimensions (changes require restart)
   #
@@ -116,8 +119,7 @@ font:
     #style: Italic
 
   # Point size
-  # 11.5 for the big screen, 14.5 for the 14-inch
-  size: 11.5
+  # size: 11.5
 
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.

@@ -3,5 +3,6 @@ test:
 	PYTHONPATH=home/bin pytest -v home/bin/tests
 	PYTHONPATH=. pytest -v tests
 
-install_links:
+install_configs:
 	python3 install/setup_system_links.py
+	python3 install/setup_alacritty_machine_specific_config.py
