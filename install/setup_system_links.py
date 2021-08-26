@@ -5,7 +5,9 @@ import re
 from typing import List, Iterable
 
 
-def should_create_link(path):
+def should_ensure_link(path):
+    """Given a path in a source directory, says whether a link for it should be created in the target directory.
+    """
     return (
         path.is_file()
         and path.suffix != '.pyc'
@@ -14,16 +16,16 @@ def should_create_link(path):
 
 
 @dataclass
-class _LinkToCreate:
+class _LinkToEnsure:
     target: Path
     location: Path
 
 
-def get_links_to_create(
+def get_links_to_ensure(
         files_to_link: List[Path],
         files_dir: Path,
         links_location: Path,
-) -> List[_LinkToCreate]:
+) -> List[_LinkToEnsure]:
     file_path_strings = [str(path) for path in files_to_link]
     link_path_strings = [
         re.sub(f'^{files_dir}', str(links_location), path)
@@ -32,13 +34,16 @@ def get_links_to_create(
     link_paths = [Path(path) for path in link_path_strings]
 
     initial_links = [
-        _LinkToCreate(target=link_target, location=link_path)
+        _LinkToEnsure(target=link_target, location=link_path)
         for link_target, link_path in zip(files_to_link, link_paths)
     ]
+    # TODO don't do filtering here
+    # return initial_links
     return [link for link in initial_links if not _is_link_set_up(link)]
 
 
-def _is_link_set_up(link: _LinkToCreate):
+# TODO can't be used. We need to delete links if they exist.
+def _is_link_set_up(link: _LinkToEnsure):
     """Prevents us doing anything if the link is already set up.
     """
     if link.location.exists() and link.location.is_symlink():
@@ -54,6 +59,7 @@ def ensure_parent_dirs(paths: Iterable[Path]):
             path.parent.mkdir(parents=True)
 
 
+# TODO needs to be changed
 def backup_and_remove_existing_targets(paths: Iterable[Path]):
     for path in paths:
         if path.exists():
@@ -68,13 +74,15 @@ def setup_links(source_dir: Path, target_dir: Path):
 
     files_and_dirs_to_link = list(source_dir.glob('**/*'))
     files_to_link = [path for path in files_and_dirs_to_link
-                     if should_create_link(path)]
+                     if should_ensure_link(path)]
 
-    links_to_create = get_links_to_create(
+    links_to_create = get_links_to_ensure(
         files_to_link=files_to_link,
         files_dir=source_dir,
         links_location=target_dir,
     )
+
+    # TODO filter out broken links for removal
     link_paths = [link.location for link in links_to_create]
 
     ensure_parent_dirs(link_paths)

@@ -6,25 +6,30 @@ import pytest
 from install import setup_system_links
 
 
+# TODO throw out? Just test the final output
 @pytest.mark.parametrize('path_end, should_create', [
     ('bla/whatever.py', True),
+    ('ble/something.conf', True),
     ('home/bin/tests/test_bla.py', False),
     ('tests/test_bla.py', False),
     ('bla/whatever.pyc', False),
 ])
-def test_choose_files_to_create_links_for(tmp_path, path_end, should_create):
+def test_should_ensure_link_function_works_ok_for_files(tmp_path, path_end, should_create):
     path = tmp_path / path_end
     path.parent.mkdir(parents=True)
     path.touch()
-    assert setup_system_links.should_create_link(path) is should_create
+    assert setup_system_links.should_ensure_link(path) is should_create
 
 
+# TODO can be replaced with the single bigger test
 def test_directories_should_not_have_links_created(tmp_path):
     directory = tmp_path / 'something'
     directory.mkdir()
-    assert not setup_system_links.should_create_link(directory)
+    assert not setup_system_links.should_ensure_link(directory)
 
 
+# TODO can be replaced with the single bigger test
+# TODO sample source_dir should be destroyed
 def test_system_symlinks_are_created(tmp_path):
     source_dir = Path(__file__).parent.parent / 'sample_source_dir'
     target_dir = tmp_path / 'target'
@@ -45,6 +50,42 @@ def test_system_symlinks_are_created(tmp_path):
         assert os.readlink(link) == str(target.absolute())
 
 
+def test_setup_links_creates_the_correct_links(tmp_path):
+    source_dir = tmp_path / 'source'
+    links_dir = tmp_path / 'target'
+
+    source_files = [
+        '1.py',
+        'a_dir/2.py'
+    ]
+
+
+# TODO test empty multi-level dirs don't create any dirs
+
+
+def test_old_system_files_are_backed_up_and_replaced_with_links(tmp_path):
+    source_dir = tmp_path / 'source'
+    links_dir = tmp_path / 'target'
+
+    source_file_content = 'Just some file content'
+    source_file = source_dir / 'bla/whatever.py'
+    source_file.parent.mkdir(parents=True)
+    source_file.write_text(source_file_content)
+
+    old_system_file_content = "I'm the old thing"
+    old_system_file = links_dir / 'bla/whatever.py'
+    old_system_file.parent.mkdir(parents=True)
+    old_system_file.write_text(old_system_file_content)
+
+    setup_system_links.setup_links(
+        source_dir=source_dir,
+        target_dir=links_dir,
+    )
+
+    assert old_system_file.with_name('whatever.py.bak').read_text() == old_system_file_content
+
+
+# TODO instead of checking for additional baks, get a list from glob twice - it should match
 def test_dont_do_anything_with_properly_set_up_symlinks(tmp_path):
     source_dir = Path(__file__).parent.parent / 'sample_source_dir'
     target_dir = tmp_path / 'target'
@@ -59,23 +100,10 @@ def test_dont_do_anything_with_properly_set_up_symlinks(tmp_path):
     assert not list(target_dir.glob('**/*.bak'))
 
 
-def test_old_system_files_are_backed_up_replaced_with_links(tmp_path):
-    source_dir = tmp_path / 'source'
-    links_dir = tmp_path / 'target'
 
-    source_file_content = 'Just some file content'
-    source_file = source_dir / 'bla/whatever.py'
-    source_file.parent.mkdir(parents=True)
-    source_file.write_text(source_file_content)
+# TODO just have tests for `setup_links` function
+# it should create the sample_source_dir
+# it should have the case of the empty directory, proving nothing wrong happens
 
-    old_system_file_content = "I'm the old thing"
-    old_system_file = links_dir / 'bla/whatever.py' 
-    old_system_file.parent.mkdir(parents=True)
-    old_system_file.write_text(old_system_file_content)
-
-    setup_system_links.setup_links(
-        source_dir=source_dir,
-        target_dir=links_dir,
-    )
-
-    assert old_system_file.with_name('whatever.py.bak').read_text() == old_system_file_content
+# def test_old_broken_symlinks_are_reported_and_deleted_during_setup(tmp_path):
+#     source_dir = 
