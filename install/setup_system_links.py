@@ -5,6 +5,8 @@ import re
 from typing import List, Iterable
 
 
+# TODO make most functions private
+
 def should_ensure_link(path):
     """Given a path in a source directory, says whether a link for it should be created in the target directory.
     """

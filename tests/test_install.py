@@ -4,6 +4,59 @@ from pathlib import Path
 import pytest
 
 from install import setup_system_links
+from install.setup_system_links import setup_links
+
+
+def test_setup_links_creates_the_correct_links(tmp_path):
+    # arrange
+    # ===========
+    source_dir = tmp_path / 'source'
+    target_dir = tmp_path / 'target'
+
+    source_file_that_should_have_links = [
+        'aaa.py',
+        'a_dir/bbb.py',
+        'b_dir/c_dir/ccc.conf',
+        'b_dir/c_dir/ddd',
+    ]
+    source_files_that_should_not_have_links = [
+        'tests/eee.py',
+        'd_dir/tests/fff.py',
+    ]
+
+    # create the source files
+    for path_str in source_file_that_should_have_links + source_files_that_should_not_have_links:
+        path = Path(source_dir) / path_str
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text('Just the file content')
+
+    # create an empty dir to make sure that it doesn't mess anything up
+    (Path(source_dir) / 'e_dir/f_dir/g_dir').mkdir(parents=True)
+
+    # act
+    # ===========
+    setup_links(
+        source_dir=source_dir,
+        target_dir=target_dir,
+    )
+
+    # assert
+    # ===========
+    target_dir_expected_dirs = {
+        Path(target_dir) / 'a_dir',
+        Path(target_dir) / 'b_dir',
+        Path(target_dir) / 'b_dir/c_dir',
+    }
+    target_dir_expected_files = {Path(target_dir) / file for file in source_file_that_should_have_links}
+    target_dir_contents = set(target_dir.glob('**/*'))
+
+    # assert we have the expected folders and links created
+    assert target_dir_contents == target_dir_expected_dirs | target_dir_expected_files
+
+    # assert the created links have expected targets
+    expected_link_targets = {str(Path(source_dir) / file) for file in source_file_that_should_have_links}
+    created_links_targets = {os.readlink(item) for item in target_dir_contents if item.is_symlink()}
+    assert created_links_targets == expected_link_targets
 
 
 # TODO throw out? Just test the final output
@@ -50,16 +103,6 @@ def test_system_symlinks_are_created(tmp_path):
         assert os.readlink(link) == str(target.absolute())
 
 
-def test_setup_links_creates_the_correct_links(tmp_path):
-    source_dir = tmp_path / 'source'
-    links_dir = tmp_path / 'target'
-
-    source_files = [
-        '1.py',
-        'a_dir/2.py'
-    ]
-
-
 # TODO test empty multi-level dirs don't create any dirs
 
 
@@ -99,6 +142,9 @@ def test_dont_do_anything_with_properly_set_up_symlinks(tmp_path):
     # no backups were created
     assert not list(target_dir.glob('**/*.bak'))
 
+
+# TODO test that links to something else that aren't us get backed up.
+# Broken links should still get destroyed.
 
 
 # TODO just have tests for `setup_links` function
