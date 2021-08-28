@@ -69,7 +69,7 @@ mount -t efivarfs efivarfs /sys/firmware/efi/efivars
 mkinitcpio -P
 
 # preparing the config for grub
-grub-mkconfig -o /boot/grub/grub.cfg  
+grub-mkconfig -o /boot/grub/grub.cfg
 
 # installing grub
 grub-install $EFI_PARTITION

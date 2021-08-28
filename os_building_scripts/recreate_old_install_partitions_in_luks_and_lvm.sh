@@ -23,6 +23,8 @@ function log() {
 # ├─nvme0n1p2 259:5    0   512M  0 part  # will be /boot 
 # └─nvme0n1p3 259:6    0 953.2G  0 part  # will be the LUKS container holding an LVM group
 
+EFI_PARTITION=/dev/nvme0n1p1
+BOOT_PARTITION=/dev/nvme0n1p2
 PARTITION_FOR_LUKS=/dev/nvme0n1p3
 
 log "creating the LUKS container in the chosen partition"
@@ -31,7 +33,7 @@ log "creating the LUKS container in the chosen partition"
 sudo cryptsetup luksFormat --type luks1 $PARTITION_FOR_LUKS
 
 VG_NAME=vg0
-MANJARO_VOLUME_NAME=manjaro
+OS_VOLUME_NAME=manjaro
 
 log "opening the new LUKS container"
 sudo cryptsetup luksOpen $PARTITION_FOR_LUKS crypt
@@ -41,21 +43,24 @@ sudo vgcreate $VG_NAME /dev/mapper/crypt
 log "creating a single logical volume for Manjaro"
 # We'll leave some space for another operating system.
 # That one can share /boot, which includes the GRUB.
-sudo lvcreate -L 853G -n $MANJARO_VOLUME_NAME $VG_NAME
+sudo lvcreate -L 853G -n $OS_VOLUME_NAME $VG_NAME
 
 # I'm expecting the drive to be manually mounted here
 cd "/run/media/manjaro/Seagate Backup Plus Drive"
 
 log "recreating the EFI partition"
-sudo dd if=bl_efi_partition_image.bin of=/dev/nvme0n1p1 bs=8M status=progress
+sudo dd if=bl_efi_partition_image.bin of=$EFI_PARTITION bs=8M status=progress
 log 'recreating the boot (GRUB and kernel) partition'
-sudo dd if=bl_boot_partition_image.bin of=/dev/nvme0n1p2 bs=8M status=progress
+sudo dd if=bl_boot_partition_image.bin of=$BOOT_PARTITION bs=8M status=progress
 
-MANJARO_VOLUME_PATH=/dev/${VG_NAME}/${MANJARO_VOLUME_NAME}
+MANJARO_VOLUME_PATH=/dev/${VG_NAME}/${OS_VOLUME_NAME}
 MANJARO_IMAGE_SIZE=$(du -h '/run/media/manjaro/Seagate Backup Plus Drive/bl_root_partition_image.bin' | cut -f 1)
 log "recreating the root Manjaro partition in ${MANJARO_VOLUME_PATH}"
 log "data size to copy ${MANJARO_IMAGE_SIZE}"
 sudo dd if=bl_root_partition_image.bin of=${MANJARO_VOLUME_PATH} bs=8M status=progress
+
+log "Resizing the root filesystem so it takes all the space available to it in the volume..."
+sudo resize2fs $MANJARO_VOLUME_PATH
 
 log "presenting the current state of partitions"
 lsblk | grep -v loop
