@@ -148,7 +148,3 @@ export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
 # if less than one screen worth of output, just print it on stdout
 # Without this Git on ZSH was trying to put everything through a pager.
 export PAGER="less -F -X"
-
-# TODO remove after alacritty fix? https://github.com/jwilm/alacritty/issues/2515
-# Needed to make apps start in the foreground
-unset DESKTOP_STARTUP_ID
