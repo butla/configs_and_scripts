@@ -108,6 +108,7 @@ export EDITOR='vim'
 # enable vim mode
 bindkey -v
 
+# TODO is this really working?
 # normal delete and backspace with VIM mode
 bindkey "^D" delete-char-or-list
 bindkey "^?" backward-delete-char
@@ -123,24 +124,14 @@ bindkey '^K' fzf-cd-widget
 # virtualenvwrapper setup
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/development
-export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-
-if which python3.8 > /dev/null; then
-    export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='-p python3.8'
-else
-    export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='-p python3.7'
-fi
+source $(which virtualenvwrapper.sh)
 
 # make python scripts use ipdb by default when debugging
 export PYTHONBREAKPOINT=ipdb.set_trace
 
-source $(which virtualenvwrapper.sh)
-
 source ~/.config/zsh/aliases.zsh
 source ~/.config/zsh/functions.zsh
 
-# https://github.com/rupa/z
-source ~/bin/z.sh
 
 # fd configuration, mainly so that FZF works more to my liking
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
