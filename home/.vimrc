@@ -29,11 +29,8 @@ Plug 'alvan/vim-closetag'
 Plug 'tpope/vim-commentary'
 " Git integration
 Plug 'tpope/vim-fugitive'
-Plug 'python-rope/ropevim'
 " Python semantic coloring
 Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
-" Python refactoring
-Plug 'python-rope/ropevim'
 " I use this for renaming stuff in Python
 Plug 'davidhalter/jedi-vim'
 Plug 'fisadev/vim-isort'
