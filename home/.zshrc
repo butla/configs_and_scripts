@@ -81,29 +81,39 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
-# User configuration
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-export EDITOR='vim'
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
+export EDITOR='nvim'
 #
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+# if less than one screen worth of output, just print it on stdout
+# Without this Git on ZSH was trying to put everything through a pager.
+export PAGER="less -F -X"
+
 
 # My stuff
 # =======================================
+
+## Options section (listed under `man zshoptions`)
+setopt always_to_end
+setopt auto_cd
+setopt auto_pushd
+setopt complete_in_word
+setopt hist_ignore_dups
+setopt hist_ignore_space
+setopt hist_verify
+setopt long_list_jobs
+setopt no_case_glob
+setopt no_extended_glob  # breaks using stuff like "HEAD^" with git
+setopt no_flow_control
+setopt no_inc_append_history
+setopt numeric_glob_sort
+setopt prompt_subst
+setopt pushd_ignore_dups
+setopt pushd_minus
+setopt rc_expand_param
+setopt share_history
+
+HISTSIZE=50000
+SAVEHIST=10000
+HISTFILE=~/.zsh_history
 
 # enable vim mode
 bindkey -v
@@ -135,7 +145,3 @@ source ~/.config/zsh/functions.zsh
 
 # fd configuration, mainly so that FZF works more to my liking
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
-
-# if less than one screen worth of output, just print it on stdout
-# Without this Git on ZSH was trying to put everything through a pager.
-export PAGER="less -F -X"
