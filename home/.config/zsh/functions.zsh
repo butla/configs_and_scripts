@@ -52,17 +52,18 @@ function windows-1250-to-utf-8()
 
 function upgrade()
 {
-    if [[ $(lsb_release -s -i) == 'Ubuntu' ]]; then
-        echo "${bg[green]}---${reset_color}Looking for updates with apt${bg[green]}---${reset_color}"
-        sudo apt update
-        sudo apt dist-upgrade
-        sudo apt autoremove -y
-    else
-        echo "${bg[green]}---${reset_color}Looking for updates with yay${bg[green]}---${reset_color}"
-        yay -Syu;
-    fi
+    echo "${bg[green]}---${reset_color}Looking for updates with yay${bg[green]}---${reset_color}"
+    yay -Syu;
+    echo "${bg[green]}---${reset_color}Removing unused pacman packages${bg[green]}---${reset_color}"
+    sudo pacman -R $(pacman -Qdtq)
+
     echo "${bg[green]}---${reset_color}Looking for updates with flatpak${bg[green]}---${reset_color}"
     flatpak update;
+
+    echo "${bg[green]}---${reset_color}Updating NeoVim plugins${bg[green]}---${reset_color}"
+    nvim +PlugUpgrade +PlugClean +PlugUpdate +qall
+
+    # TODO update Tmux plugins
 }
 
 function record_voice()
