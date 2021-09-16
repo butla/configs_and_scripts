@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from dataclasses import dataclass
 from pathlib import Path
+import platform
 import os
 import re
 from typing import List, Iterable
@@ -102,7 +103,12 @@ def _remove_broken_links(paths: Iterable[Path]):
 
 if __name__ == '__main__':
     setup_links(
-        source_dir=Path('home/'),
+        source_dir=Path('host_agnostic/'),
+        target_dir=Path('~').expanduser(),
+    )
+    current_host = platform.node()
+    setup_links(
+        source_dir=Path(f'host_specific/{current_host}/'),
         target_dir=Path('~').expanduser(),
     )
     # TODO make sure the files here are chmod 600
