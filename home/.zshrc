@@ -94,15 +94,15 @@ export PAGER="less -F -X"
 setopt always_to_end
 setopt auto_cd
 setopt auto_pushd
+unsetopt case_glob
 setopt complete_in_word
+unsetopt extended_glob  # breaks using stuff like "HEAD^" with git
+unsetopt flow_control   # prevents ctrl+s from freezing the terminal
 setopt hist_ignore_dups
 setopt hist_ignore_space
 setopt hist_verify
+unsetopt inc_append_history
 setopt long_list_jobs
-setopt no_case_glob
-setopt no_extended_glob  # breaks using stuff like "HEAD^" with git
-setopt no_flow_control
-setopt no_inc_append_history
 setopt numeric_glob_sort
 setopt prompt_subst
 setopt pushd_ignore_dups
@@ -117,7 +117,6 @@ HISTFILE=~/.zsh_history
 # enable vim mode
 bindkey -v
 
-# TODO is this really working?
 # normal delete and backspace with VIM mode
 bindkey "^D" delete-char-or-list
 bindkey "^?" backward-delete-char
@@ -128,8 +127,6 @@ source ~/.local/share/nvim/plugged/fzf/shell/key-bindings.zsh
 # bind cd with fzf to crtl+k in addition to esc+c (described as alt+c)
 bindkey '^K' fzf-cd-widget
 
-# TODO show current vim mode indicator
-
 # virtualenvwrapper setup
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/development
@@ -138,12 +135,13 @@ source $(which virtualenvwrapper.sh)
 # make python scripts use ipdb by default when debugging
 export PYTHONBREAKPOINT=ipdb.set_trace
 
+# fd configuration, mainly so that FZF works more to my liking
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+
 source ~/.config/zsh/aliases.zsh
 source ~/.config/zsh/functions.zsh
 
-
-# fd configuration, mainly so that FZF works more to my liking
-export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
