@@ -22,3 +22,4 @@ python = "^3.8"
 [tool.poetry.dev-dependencies]
 pylint = "^2.7.4"
 isort = "^5.8.0"
+pytest = "^6.2.5"

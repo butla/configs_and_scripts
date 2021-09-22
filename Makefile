@@ -1,5 +1,5 @@
 test:
-	PYTHONPATH=.:home/bin pytest -v tests
+	PYTHONPATH=.:host_agnostic/bin pytest -v tests
 
 install_configs:
 	python3 install/setup_system_links.py
